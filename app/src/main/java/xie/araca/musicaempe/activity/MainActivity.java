@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,18 +22,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import xie.araca.musicaempe.R;
+import xie.araca.musicaempe.adapter.EventsTabsAdapter;
 import xie.araca.musicaempe.databinding.ActivityMainBinding;
 
 import xie.araca.musicaempe.databinding.ContentMainBinding;
 import xie.araca.musicaempe.fragment.ArtistsFragment;
 import xie.araca.musicaempe.fragment.EventsFragment;
+import xie.araca.musicaempe.fragment.EventsListFragment;
 import xie.araca.musicaempe.fragment.ExploreFragment;
 import xie.araca.musicaempe.fragment.FavoriteFragment;
 import xie.araca.musicaempe.fragment.HomeFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private DatabaseReference referenceFirebase = FirebaseDatabase.getInstance().getReference();
 
     private Fragment fragmentHome = new HomeFragment();
     private Fragment fragmentEvents = new EventsFragment();
@@ -43,6 +51,10 @@ public class MainActivity extends AppCompatActivity
     private Fragment active = fragmentHome;
     private ActivityMainBinding binding;
 
+    private ViewPager viewPager;
+    private Fragment fragmentEventsList;
+    private Fragment fragmentEventsMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +62,8 @@ public class MainActivity extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+
+        referenceFirebase.child("Kawhi").setValue("100");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -59,6 +72,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);

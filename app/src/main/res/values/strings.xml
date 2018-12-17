@@ -21,4 +21,20 @@
 
     <string name="title_action_add_event">Adicionar Evento</string>
     <string name="title_action_search">Pesquisar</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="signup_name">Digite o nome do(a) artista/grupo/pessoa</string>
+    <string name="signup_username">Digite o nome de usuário para login</string>
+    <string name="signup_email">Digite seu email</string>
+    <string name="signup_password">Digite sua senha</string>
+
+    <string name="login_username">Usuário</string>
+    <string name="login_password">Senha</string>
+
+    <string name="checkArtista">Caso seja artista, marque.</string>
+
+    <string name="no_login">Não tem conta? Clique aqui para cadastrar.</string>
+    <string name="no_signup">Já tem conta? Clique aqui.</string>
+    <string name="title_activity_config">ConfigActivity</string>
 </resources>

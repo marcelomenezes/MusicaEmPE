@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/activity_sign_up">
+
+<ScrollView
+    android:id="@+id/activity_signup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_pe"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center_vertical|center_horizontal"
+    tools:context=".activity.SignUpActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+    <EditText
+        android:id="@+id/cadastroNomeId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="163dp"
+        android:background="@drawable/fundo_caixa_texto"
+        android:ems="10"
+        android:hint="@string/signup_name"
+        android:inputType="textPersonName"
+        android:padding="16dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
+
+    <EditText
+        android:id="@+id/cadastroUsuarioId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cadastroNomeId"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/fundo_caixa_texto"
+        android:ems="10"
+        android:hint="@string/signup_username"
+        android:inputType="textPersonName"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
+
+    <EditText
+        android:id="@+id/cadastroEmailId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cadastroUsuarioId"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/fundo_caixa_texto"
+        android:ems="10"
+        android:hint="@string/signup_email"
+        android:inputType="textEmailAddress"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
+
+    <Button
+        android:id="@+id/botaoCadastrarId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cadastroSenhaId"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/fundo_botao"
+        android:text="Cadastrar"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/cadastroSenhaId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cadastroEmailId"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/fundo_caixa_texto"
+        android:ems="10"
+
+        android:hint="@string/signup_password"
+        android:inputType="textPassword"
+        android:padding="16dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cadastroSenhaId"
+        android:textColor="@color/background_material_light"
+        android:text="@string/checkArtista"
+        android:id="@+id/text_check"
+        android:layout_marginTop="10dp"/>
+    <CheckBox
+        android:id="@+id/item_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cadastroSenhaId"
+        android:layout_toRightOf="@+id/text_check"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/background_material_light"/>
+
+    <TextView
+        android:id="@+id/noLoginId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_below="@+id/botaoCadastrarId"
+        android:layout_marginTop="3dp"
+        android:text="@string/no_signup"
+        android:textColor="@color/background_material_light" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="260dp"
+        android:src="@drawable/som_ic"
+        android:layout_above="@+id/cadastroEmailId"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp" />
+    </RelativeLayout>
+</ScrollView>
+</layout>
