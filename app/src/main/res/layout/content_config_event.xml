@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+xmlns:android="http://schemas.android.com/apk/res/android">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:id="@+id/scroll_links">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/content_perfil_artista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        tools:context="com.parse.starter.activity.PerfilArtistaActivity">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/imagem_evento_config"
+            android:layout_marginTop="100dp" />
+
+        <TextView
+            android:id="@+id/text_data_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imagem_evento_config"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text="Data:" />
+
+        <EditText
+            android:layout_width="160sp"
+            android:layout_below="@+id/text_data_id"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_de_data_evento"
+            android:focusableInTouchMode="false"
+            android:inputType="date"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="1dp"
+            android:hint="De: dd/mm/aaaa" />
+
+        <EditText
+            android:layout_width="160sp"
+            android:layout_below="@+id/text_data_id"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_ate_data_evento"
+            android:inputType="date"
+            android:layout_marginTop="1dp"
+            android:focusableInTouchMode="false"
+            android:layout_toEndOf="@+id/text_de_data_evento"
+            android:hint="Até: dd/mm/aaaa" />
+
+        <TextView
+            android:id="@+id/textview_evento_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_de_data_evento"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Evento:" />
+
+        <EditText
+            android:hint="Nome do Evento"
+            android:id="@+id/text_config_nome_evento"
+            android:layout_width="320sp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_evento_id"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="1dp" />
+
+        <TextView
+            android:id="@+id/textview_detalhes_evento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_config_nome_evento"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Detalhes:" />
+
+        <EditText
+            android:hint="Detalhes do Evento"
+            android:id="@+id/text_config_introducao_evento"
+            android:layout_height="wrap_content"
+            android:layout_width="320sp"
+            android:layout_below="@+id/textview_detalhes_evento"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="1dp" />
+
+        <TextView
+            android:id="@+id/textview_endereco_config"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_config_introducao_evento"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Endereço:" />
+
+        <fragment
+            android:hint="Endereço"
+            android:id="@+id/endereco_config_evento"
+            android:layout_width="320sp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_endereco_config"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="1dp"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"/>
+
+        <Button
+            android:text="Salvar Evento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/endereco_config_evento"
+            android:id="@+id/botao_salvar_evento"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="120dp" />
+
+        <Button
+            android:text="Escolher Imagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imagem_evento_config"
+            android:layout_toEndOf="@+id/imagem_evento_config"
+            android:layout_marginStart="30dp"
+            android:id="@+id/botao_escolher_imagem_evento" />
+
+    </RelativeLayout>
+</ScrollView>
+</layout>

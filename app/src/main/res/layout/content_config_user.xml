@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_links">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/content_perfil_artista"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        tools:context="com.parse.starter.activity.PerfilArtistaActivity">
+
+        <ImageView
+            android:id="@+id/imagem_perfil_config"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="50dp" />
+
+        <Button
+            android:id="@+id/botao_trocar_imagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imagem_perfil_config"
+            android:layout_alignStart="@+id/imagem_perfil_config"
+            android:layout_below="@+id/imagem_perfil_config"
+            android:layout_marginLeft="1dp"
+            android:layout_marginStart="1dp"
+            android:text="Alterar Imagem" />
+
+        <TextView
+            android:id="@+id/textview_cidade_config"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/botao_trocar_imagem"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:focusableInTouchMode="true"
+            android:text="Cidade:" />
+
+        <EditText
+            android:id="@+id/text_config_cidade_perfil"
+            android:layout_width="320sp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_cidade_config"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="1dp"
+            android:hint="Cidade Natal" />
+
+        <TextView
+            android:id="@+id/textview_introducao_config"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_config_cidade_perfil"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Bairro:" />
+
+        <EditText
+            android:id="@+id/text_config_introducao_perfil"
+            android:layout_width="320sp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_introducao_config"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="1dp"
+            android:hint="Bairro" />
+
+        <TextView
+            android:id="@+id/lista_ritmos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_config_introducao_perfil"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Ritmos de interesse:" />
+
+        <EditText
+            android:id="@+id/text_config_ritmos_artista"
+            android:layout_width="320sp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lista_ritmos"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="1dp"
+            android:hint="Adicione Ritmos" />
+
+        <Button
+            android:id="@+id/botao_salvar_alteracao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_config_ritmos_artista"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="10dp"
+            android:text="Salvar Alteração" />
+
+    </RelativeLayout>
+</ScrollView>
+</layout>

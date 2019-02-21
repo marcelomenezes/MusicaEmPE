@@ -37,4 +37,12 @@
     <string name="no_login">Não tem conta? Clique aqui para cadastrar.</string>
     <string name="no_signup">Já tem conta? Clique aqui.</string>
     <string name="title_activity_config">ConfigActivity</string>
+    <string name="title_activity_config_user">ConfigUserActivity</string>
+    <string name="title_activity_config_event">ConfigEventActivity</string>
+    <string name="title_activity_profile_artist">ProfileArtistActivity</string>
+    <string name="title_activity_profile_event">ProfileEventActivity</string>
+    
+    <string name="error_signup_weak_password">Digite uma senha com mais de 6 caracteres.</string>
+    <string name="error_signup_invalid_email">Digite um email válido.</string>
+    <string name="error_signup_user_collision">Usuário existente, digite um novo nome de usuário.</string>
 </resources>

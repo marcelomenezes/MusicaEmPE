@@ -9,12 +9,12 @@ import android.view.View;
 
 import xie.araca.musicaempe.R;
 
-public class ConfigActivity extends AppCompatActivity {
+public class ProfileArtistActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_config);
+        setContentView(R.layout.activity_profile_artist);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -1,5 +1,7 @@
 package xie.araca.musicaempe.activity;
 
+import android.app.ActivityManager;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -22,11 +24,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.adapter.EventsTabsAdapter;
+import xie.araca.musicaempe.config.ConfigFirebase;
 import xie.araca.musicaempe.databinding.ActivityMainBinding;
 
 import xie.araca.musicaempe.databinding.ContentMainBinding;
@@ -40,8 +44,6 @@ import xie.araca.musicaempe.fragment.HomeFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DatabaseReference referenceFirebase = FirebaseDatabase.getInstance().getReference();
-
     private Fragment fragmentHome = new HomeFragment();
     private Fragment fragmentEvents = new EventsFragment();
     private Fragment fragmentArtists = new ArtistsFragment();
@@ -50,29 +52,27 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager fm = getSupportFragmentManager();
     private Fragment active = fragmentHome;
     private ActivityMainBinding binding;
+    private ContentMainBinding contentBind;
 
     private ViewPager viewPager;
     private Fragment fragmentEventsList;
     private Fragment fragmentEventsMap;
 
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        referenceFirebase.child("Kawhi").setValue("100");
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        binding.navView.setNavigationItemSelectedListener(this);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
@@ -167,6 +167,13 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        } else if(id == R.id.nav_logout){
+
+            firebaseAuth = ConfigFirebase.getFirebaseAuth();
+            firebaseAuth.signOut();
+
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

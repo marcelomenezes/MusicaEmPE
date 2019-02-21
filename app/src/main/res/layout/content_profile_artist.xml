@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="20dp"
+    android:id="@+id/scroll_artista">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/content_perfil_artista"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.parse.starter.activity.PerfilArtistaActivity">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:id="@+id/imagem_perfil"/>
+
+        <TextView
+            android:id="@+id/textview_cidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imagem_perfil"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:text="Cidade:" />
+
+        <TextView
+            android:text="Recife"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_cidade"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="1dp"
+            android:id="@+id/text_cidade_perfil" />
+
+
+        <TextView
+            android:id="@+id/textview_introducao"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Introdução:"
+            android:layout_below="@+id/text_cidade_perfil"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_introducao"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="1dp"
+            android:text="Intro"
+            android:id="@+id/text_introducao_perfil" />
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_introducao_perfil"
+            android:layout_marginTop="10dp"
+            android:text="Lista Ritmos:"
+            android:id="@+id/lista_ritmos"/>
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:id="@+id/lista_webView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Redes Sociais:"
+            android:layout_below="@+id/lista_ritmos"/>
+
+        <TextView
+            android:id="@+id/lista_rede"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lista_webView"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:text="ola" />
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+</ScrollView>
+</layout>
