@@ -101,21 +101,11 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_marginTop="10dp"
             android:text="Endereço:" />
 
-        <fragment
-            android:hint="Endereço"
-            android:id="@+id/endereco_config_evento"
-            android:layout_width="320sp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textview_endereco_config"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp"
-            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"/>
-
         <Button
             android:text="Salvar Evento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/endereco_config_evento"
+            android:layout_below="@+id/textview_endereco_config"
             android:id="@+id/botao_salvar_evento"
             android:layout_marginTop="10dp"
             android:layout_marginStart="120dp" />

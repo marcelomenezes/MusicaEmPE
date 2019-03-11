@@ -8,46 +8,44 @@ import android.view.ViewGroup;
 
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import xie.araca.musicaempe.R;
-import xie.araca.musicaempe.config.ConfigFirebase;
-import xie.araca.musicaempe.databinding.ListArtistsBinding;
 import xie.araca.musicaempe.holder.ArtistHolder;
+import xie.araca.musicaempe.holder.EventHolder;
 import xie.araca.musicaempe.model.User;
 
-public class ArtistAdapter extends RecyclerView.Adapter<ArtistHolder>{
+public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
+
     private final List<User> mUsers;
 
     private DatabaseReference firebase;
     private Context context;
 
 
-    public ArtistAdapter(List<User> users, Context c) {
+    public EventAdapter(List<User> users, Context c) {
 
         this.mUsers = users;
         this.context = c;
     }
 
     @Override
-    public ArtistHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View listArtist = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_artists, parent, false);
 
-        return new ArtistHolder(listArtist);
+        return new EventHolder(listArtist);
     }
 
     @Override
-    public void onBindViewHolder(ArtistHolder holder, int position) {
+    public void onBindViewHolder(EventHolder holder, int position) {
         //firebase = ConfigFirebase.getReferenceFirebase()
-          //      .child("users");
+        //      .child("users");
 
 
         User user = mUsers.get(position);
-        holder.artistName.setText(user.getUsername());
-        holder.artistCity.setText(user.getEmail());
+        holder.eventName.setText(user.getUsername());
+        holder.eventCity.setText(user.getEmail());
         //holder.artistName.setText(firebase.child("username").toString());
         //holder.artistCity.setText(firebase.child("email").toString());
         //holder.artistPicture
@@ -77,3 +75,4 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistHolder>{
         notifyItemChanged(position);
     }
 }
+

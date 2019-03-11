@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity
                     active = fragmentEvents;
                     return true;
                 case R.id.navigation_explore:
-                    fm.beginTransaction().hide(active).show(fragmentArtists).commit();
-                    active = fragmentArtists;
+                    fm.beginTransaction().hide(active).show(fragmentExplore).commit();
+                    active = fragmentExplore;
                     return true;
                 case R.id.navigation_favorite:
                     fm.beginTransaction().hide(active).show(fragmentEvents).commit();
@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_event) {
+            addEvent();
             return true;
         }
 
@@ -165,7 +166,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_config) {
+            Intent intent = new Intent(MainActivity.this, ConfigUserActivity.class);
+            startActivity(intent);
 
         } else if(id == R.id.nav_logout){
 
@@ -179,5 +182,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void addEvent(){
+        Intent intent = new Intent(this, ConfigEventActivity.class);
+        startActivity(intent);
     }
 }

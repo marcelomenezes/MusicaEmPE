@@ -48,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 user = new User();
-                user.setNameUser(binding.signupContent.cadastroEmailId.getText().toString());
+                user.setNameUser(binding.signupContent.cadastroNomeId.getText().toString());
                 user.setEmail(binding.signupContent.cadastroEmailId.getText().toString());
                 user.setUsername(binding.signupContent.cadastroUsuarioId.getText().toString());
                 user.setPassword(binding.signupContent.cadastroSenhaId.getText().toString());
