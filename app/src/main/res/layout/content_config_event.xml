@@ -38,7 +38,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_width="160sp"
             android:layout_below="@+id/text_data_id"
             android:layout_height="wrap_content"
-            android:id="@+id/text_de_data_evento"
+            android:id="@+id/text_start_date_event"
             android:focusableInTouchMode="false"
             android:inputType="date"
             android:layout_marginStart="20dp"
@@ -49,25 +49,25 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_width="160sp"
             android:layout_below="@+id/text_data_id"
             android:layout_height="wrap_content"
-            android:id="@+id/text_ate_data_evento"
+            android:id="@+id/text_end_date_event"
             android:inputType="date"
             android:layout_marginTop="1dp"
             android:focusableInTouchMode="false"
-            android:layout_toEndOf="@+id/text_de_data_evento"
+            android:layout_toEndOf="@+id/text_start_date_event"
             android:hint="Até: dd/mm/aaaa" />
 
         <TextView
             android:id="@+id/textview_evento_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_de_data_evento"
+            android:layout_below="@+id/text_end_date_event"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:text="Evento:" />
 
         <EditText
             android:hint="Nome do Evento"
-            android:id="@+id/text_config_nome_evento"
+            android:id="@+id/text_config_name_event"
             android:layout_width="320sp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textview_evento_id"
@@ -78,14 +78,14 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:id="@+id/textview_detalhes_evento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_config_nome_evento"
+            android:layout_below="@+id/text_config_name_event"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:text="Detalhes:" />
 
         <EditText
             android:hint="Detalhes do Evento"
-            android:id="@+id/text_config_introducao_evento"
+            android:id="@+id/text_config_intro_event"
             android:layout_height="wrap_content"
             android:layout_width="320sp"
             android:layout_below="@+id/textview_detalhes_evento"
@@ -96,7 +96,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:id="@+id/textview_endereco_config"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_config_introducao_evento"
+            android:layout_below="@+id/text_config_intro_event"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:text="Endereço:" />
@@ -106,7 +106,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textview_endereco_config"
-            android:id="@+id/botao_salvar_evento"
+            android:id="@+id/bt_save_event"
             android:layout_marginTop="10dp"
             android:layout_marginStart="120dp" />
 
@@ -117,7 +117,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_alignBottom="@+id/imagem_evento_config"
             android:layout_toEndOf="@+id/imagem_evento_config"
             android:layout_marginStart="30dp"
-            android:id="@+id/botao_escolher_imagem_evento" />
+            android:id="@+id/bt_choose_image_event" />
 
     </RelativeLayout>
 </ScrollView>

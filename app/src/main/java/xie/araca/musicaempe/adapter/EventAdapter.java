@@ -13,28 +13,29 @@ import java.util.List;
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.holder.ArtistHolder;
 import xie.araca.musicaempe.holder.EventHolder;
+import xie.araca.musicaempe.model.Event;
 import xie.araca.musicaempe.model.User;
 
 public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
 
-    private final List<User> mUsers;
+    private final List<Event> mEvents;
 
     private DatabaseReference firebase;
     private Context context;
 
 
-    public EventAdapter(List<User> users, Context c) {
+    public EventAdapter(List<Event> events, Context c) {
 
-        this.mUsers = users;
+        this.mEvents = events;
         this.context = c;
     }
 
     @Override
     public EventHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View listArtist = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_artists, parent, false);
+        View listEvent = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_events, parent, false);
 
-        return new EventHolder(listArtist);
+        return new EventHolder(listEvent);
     }
 
     @Override
@@ -43,9 +44,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
         //      .child("users");
 
 
-        User user = mUsers.get(position);
-        holder.eventName.setText(user.getUsername());
-        holder.eventCity.setText(user.getEmail());
+        Event event = mEvents.get(position);
+        holder.eventName.setText(event.getNameEvent());
+        holder.eventCity.setText(event.getDetailsEvent());
         //holder.artistName.setText(firebase.child("username").toString());
         //holder.artistCity.setText(firebase.child("email").toString());
         //holder.artistPicture
@@ -55,23 +56,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
     @Override
     public int getItemCount() {
 
-        return mUsers.size();
+        return mEvents.size();
         //return mUsers != null ? mUsers.size() : 0;
     }
 
-    public void updateList(User user) {
-        insertItem(user);
+    public void updateList(Event event) {
+        insertItem(event);
     }
 
     // Método responsável por inserir um novo usuário na lista
     //e notificar que há novos itens.
-    private void insertItem(User user) {
-        mUsers.add(user);
+    private void insertItem(Event event) {
+        mEvents.add(event);
         notifyItemInserted(getItemCount());
     }
 
     private void updateItem(int position) {
-        User userModel = mUsers.get(position);
+        Event eventModel = mEvents.get(position);
         notifyItemChanged(position);
     }
 }

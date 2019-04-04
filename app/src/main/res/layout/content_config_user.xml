@@ -23,7 +23,26 @@
             android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="110dp"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="50dp"
+            android:src="@drawable/user"/>
+
+        <ImageButton
+            android:id="@+id/imgbt_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_alignStart="@id/imagem_perfil_config"
+            android:layout_alignBottom="@id/imagem_perfil_config"
+            android:src="@drawable/ic_photo_camera"/>
+
+        <ImageButton
+            android:id="@+id/imgbt_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_alignEnd="@id/imagem_perfil_config"
+            android:layout_alignBottom="@id/imagem_perfil_config"
+            android:src="@drawable/ic_photo"/>
 
         <Button
             android:id="@+id/botao_trocar_imagem"

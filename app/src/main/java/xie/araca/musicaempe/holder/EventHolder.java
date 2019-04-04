@@ -19,8 +19,8 @@ public class EventHolder extends RecyclerView.ViewHolder{
 
     public EventHolder(View itemView){
         super(itemView);
-        eventName = itemView.findViewById(R.id.text_artists);
-        eventCity = itemView.findViewById(R.id.text_city);
+        eventName = itemView.findViewById(R.id.text_event);
+        eventCity = itemView.findViewById(R.id.text_city_event);
         eventPicture = itemView.findViewById(R.id.icon_artist);
     }
 }

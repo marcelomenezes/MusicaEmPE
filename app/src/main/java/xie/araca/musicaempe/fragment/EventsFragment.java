@@ -17,9 +17,6 @@ import xie.araca.musicaempe.adapter.EventsTabsAdapter;
  */
 public class EventsFragment extends Fragment {
 
-    private View view;
-    private ViewPager viewPager;
-
     public EventsFragment() {
         // Required empty public constructor
     }
@@ -29,9 +26,10 @@ public class EventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_events, container, false);
+        View view =  inflater.inflate(R.layout.fragment_events, container, false);
+
         EventsTabsAdapter eventsTabsAdapter = new EventsTabsAdapter(getChildFragmentManager());
-        viewPager = view.findViewById(R.id.pager_events);
+        ViewPager viewPager = view.findViewById(R.id.pager_events);
         viewPager.setAdapter(eventsTabsAdapter);
         return view;
     }

@@ -46,7 +46,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistHolder>{
 
 
         User user = mUsers.get(position);
-        holder.artistName.setText(user.getUsername());
+        holder.artistName.setText(user.getNameUser());
         holder.artistCity.setText(user.getEmail());
         //holder.artistName.setText(firebase.child("username").toString());
         //holder.artistCity.setText(firebase.child("email").toString());
