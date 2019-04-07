@@ -31,6 +31,7 @@ import xie.araca.musicaempe.model.User;
 public class ArtistsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private ArtistAdapter adapter, returned;
+    private List<User> loaded;
     private ArrayList<User> listArtist = new ArrayList<>();
     private DatabaseReference databaseReference;
     private ValueEventListener valueEventListener;
@@ -101,21 +102,23 @@ public class ArtistsFragment extends Fragment implements SwipeRefreshLayout.OnRe
             clearSearch();
             return;
         }else {
-            getArtists();
             List<User> usersFound = new ArrayList<>(listArtist);
             if (usersFound.size() > 0) {
-                for (int i = usersFound.size() - 1; i>=0; i--) {
-                    User user = usersFound.get(i);
+                for (User user : listArtist) {
                     String name = user.getNameUser().toUpperCase();
-                    if (name.contains(s.toUpperCase()))
+                    if (!name.contains(s.toUpperCase()))
                         usersFound.remove(user);
                 }
             }
-            adapter = new ArtistAdapter(usersFound, getActivity());
-            recyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+            loaded = new ArrayList<>();
+            loaded.addAll(usersFound);
+
+
         }
 
+        returned = new ArtistAdapter(loaded, getActivity());
+        recyclerView.setAdapter(returned);
+        returned.notifyDataSetChanged();
     }
     public void clearSearch(){
         returned = new ArtistAdapter(listArtist, getActivity());

@@ -45,4 +45,6 @@
     <string name="error_signup_weak_password">Digite uma senha com mais de 6 caracteres.</string>
     <string name="error_signup_invalid_email">Digite um email válido.</string>
     <string name="error_signup_user_collision">Usuário existente, digite um novo nome de usuário.</string>
+    
+    <string name="hint_search">Pesquisar</string>
 </resources>

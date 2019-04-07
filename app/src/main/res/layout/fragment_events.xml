@@ -6,12 +6,17 @@
     tools:context=".fragment.EventsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
+    <!--
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:id="@+id/pager_events">
 
     </android.support.v4.view.ViewPager>
-
+    -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_events"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/list_events"/>
 </FrameLayout>

@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("Pesquisar");
+        searchView.setQueryHint(getString(R.string.hint_search));
         return true;
     }
 
@@ -220,8 +220,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onQueryTextChange(String s) {
         fragmentArtists.search(s);
         //fragmentEventsList.search(s);
+        fragmentEvents.search(s);
         Log.d("evento", "hello");
-        return false;
+        return true;
     }
     @Override
     public boolean onMenuItemActionExpand(MenuItem item) {
@@ -231,6 +232,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onMenuItemActionCollapse(MenuItem item) {
         fragmentArtists.clearSearch();
+        //fragmentEventsList.clearSearch();
+        fragmentEvents.clearSearch();
         return true; // para voltar ao normal
     }
 }

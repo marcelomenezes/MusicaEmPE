@@ -5,6 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -29,6 +32,61 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
         this.mEvents = events;
         this.context = c;
     }
+/*
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent){
+
+        View view = null;
+
+
+        ViewHolder holder = null;
+
+       // Verifica se não tem view criada
+
+        if( view == null) {
+
+            //Inicializa o objeto para montagem do layout
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+
+            //Monta a partir do xml
+            view = inflater.inflate(R.layout.list_events, parent, false);
+            holder = new ViewHolder();
+
+
+            //Recupera os elementos para exibição
+            holder.eventName =  view.findViewById(R.id.text_event);
+            holder.eventCity =  view.findViewById(R.id.text_city_event);
+
+
+
+            //verifica se existe eventos listados
+            if (mEvents.size() > 0) {
+
+
+                //Configurar TextView para exibir os eventos
+                Event event = mEvents.get(position);
+                holder.eventName.setText(event.getNameEvent());
+                holder.eventCity.setText(event.getDetailsEvent());
+
+
+            }
+        }else{
+            view = convertView;
+        }
+
+
+        return view;
+    }
+
+    static  class ViewHolder{
+        TextView eventName;
+        TextView eventCity;
+
+        ImageView imagemEvento;
+    }
+*/
+
+    //TODO in case of making a search inside tabsadapter
 
     @Override
     public EventHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -75,5 +133,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
         Event eventModel = mEvents.get(position);
         notifyItemChanged(position);
     }
+
 }
 

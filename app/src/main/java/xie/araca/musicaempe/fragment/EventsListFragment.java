@@ -3,6 +3,7 @@ package xie.araca.musicaempe.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,14 +28,14 @@ import xie.araca.musicaempe.model.User;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventsListFragment extends Fragment {
+public class EventsListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private DatabaseReference databaseReference;
     private ValueEventListener valueEventListener;
-    private EventAdapter adapter;
+    private EventAdapter adapter, returned;
     private ArrayList<Event> listEvent = new ArrayList<>();
-    private ArrayList<Event> listFiltered, loadList;
     private RecyclerView recyclerView;
+    private List<Event> loaded;
 
     public EventsListFragment() {
         // Required empty public constructor
@@ -46,9 +47,9 @@ public class EventsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_events_list, container, false);
-        databaseReference = ConfigFirebase.getReferenceFirebase().child("events");
 
         recyclerView = view.findViewById(R.id.recycle_events_list);
+        databaseReference = ConfigFirebase.getReferenceFirebase().child("events");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         adapter = new EventAdapter(listEvent, getActivity());
@@ -68,6 +69,10 @@ public class EventsListFragment extends Fragment {
     public void onStop() {
         super.onStop();
         databaseReference.removeEventListener(valueEventListener);
+    }
+    @Override
+    public void onRefresh(){
+        getEvents();
     }
 
     public void getEvents() {
@@ -93,22 +98,26 @@ public class EventsListFragment extends Fragment {
             clearSearch();
             return;
         }else {
-            getEvents();
             List<Event> eventsFound = new ArrayList<>(listEvent);
                 if (eventsFound.size() > 0) {
                     for (Event event : listEvent) {
-                        String name = event.getNameEvent();
-                        if (!name.contains(s))
+                        String name = event.getNameEvent().toUpperCase();
+                        if (!name.contains(s.toUpperCase()))
                             eventsFound.remove(event);
                      }
                 }
-                adapter = new EventAdapter(eventsFound, getActivity());
-            recyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+                loaded = new ArrayList<>();
+                loaded.addAll(eventsFound);
+
+
         }
+        adapter = new EventAdapter(loaded, getActivity());
+        recyclerView.setAdapter(adapter);
 
     }
     public void clearSearch(){
+        adapter = new EventAdapter(listEvent, getActivity());
+        recyclerView.setAdapter(adapter);
 
     }
 }
