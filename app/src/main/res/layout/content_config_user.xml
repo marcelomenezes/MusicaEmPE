@@ -17,15 +17,26 @@
         android:focusableInTouchMode="true"
         tools:context="com.parse.starter.activity.PerfilArtistaActivity">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imagem_perfil_config"
+            android:layout_width="156dp"
+            android:layout_height="156dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="50dp"
+            app:civ_border_width="5dp"
+            app:civ_border_color="#FFFFFFFF"/>
+<!--
+        <ImageView
+
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="110dp"
             android:layout_marginTop="50dp"
             android:src="@drawable/user"/>
-
+-->
         <ImageButton
             android:id="@+id/imgbt_camera"
             android:layout_width="wrap_content"
@@ -44,35 +55,37 @@
             android:layout_alignBottom="@id/imagem_perfil_config"
             android:src="@drawable/ic_photo"/>
 
-        <Button
-            android:id="@+id/botao_trocar_imagem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imagem_perfil_config"
-            android:layout_alignStart="@+id/imagem_perfil_config"
-            android:layout_below="@+id/imagem_perfil_config"
-            android:layout_marginLeft="1dp"
-            android:layout_marginStart="1dp"
-            android:text="Alterar Imagem" />
 
         <TextView
             android:id="@+id/textview_cidade_config"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/botao_trocar_imagem"
+            android:layout_below="@+id/imagem_perfil_config"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:focusableInTouchMode="true"
             android:text="Cidade:" />
 
-        <EditText
+
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/text_config_cidade_perfil"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_cidade_config"
+            app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
+
+
+        <EditText
+            android:id="@+id/text_config_cidade_perfil_content"
             android:layout_width="320sp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textview_cidade_config"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="1dp"
             android:hint="Cidade Natal" />
+        </android.support.design.widget.TextInputLayout>
+
 
         <TextView
             android:id="@+id/textview_introducao_config"

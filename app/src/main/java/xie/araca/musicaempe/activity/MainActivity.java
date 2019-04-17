@@ -30,8 +30,11 @@ import android.view.MenuInflater;
 
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.adapter.EventsTabsAdapter;
@@ -46,6 +49,8 @@ import xie.araca.musicaempe.fragment.ExploreFragment;
 import xie.araca.musicaempe.fragment.FavoriteFragment;
 import xie.araca.musicaempe.fragment.HomeFragment;
 import xie.araca.musicaempe.helper.Permission;
+import xie.araca.musicaempe.helper.UserFirebase;
+import xie.araca.musicaempe.model.User;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -68,6 +73,9 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth firebaseAuth;
 
+    private String currentUser = UserFirebase.getCurrentUserId();
+
+    private String nameUser;
 
 
     @Override
@@ -188,8 +196,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_config) {
-            Intent intent = new Intent(MainActivity.this, ConfigUserActivity.class);
-            startActivity(intent);
+            getValueConfig();
 
         } else if(id == R.id.nav_logout){
 
@@ -235,5 +242,27 @@ public class MainActivity extends AppCompatActivity
         //fragmentEventsList.clearSearch();
         fragmentEvents.clearSearch();
         return true; // para voltar ao normal
+    }
+
+    public void getValueConfig(){
+        DatabaseReference databaseReference = ConfigFirebase.getReferenceFirebase();
+        DatabaseReference data = databaseReference.child("users").child(currentUser).child("nameUser");
+
+        data.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                nameUser = dataSnapshot.getValue().toString();
+                Intent intent = new Intent(MainActivity.this, ConfigUserActivity.class);
+                intent.putExtra("nameUser", nameUser);
+
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
