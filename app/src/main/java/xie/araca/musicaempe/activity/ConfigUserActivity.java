@@ -49,6 +49,7 @@ public class ConfigUserActivity extends AppCompatActivity {
     private static final int SELECT_GALLERY = 200;
 
     private ImageView imageView;
+    private EditText textNameUser;
     private EditText city;
 
     private StorageReference storageReference;
@@ -65,10 +66,11 @@ public class ConfigUserActivity extends AppCompatActivity {
 
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
         setSupportActionBar(toolbar);
-        imageView = findViewById(R.id.imagem_perfil_config);
-        city = findViewById(R.id.text_config_introducao_perfil);
-        ImageButton btChoosePicture = findViewById(R.id.imgbt_gallery);
-        ImageButton btTakePicture = findViewById(R.id.imgbt_camera);
+        imageView = findViewById(R.id.image_profile_user_config);
+        textNameUser = findViewById(R.id.edittext_config_name_profile_user);
+        city = findViewById(R.id.edittext_config_city_profile_user);
+        ImageButton btChoosePicture = findViewById(R.id.imgbt_gallery_user);
+        ImageButton btTakePicture = findViewById(R.id.imgbt_camera_user);
 
         //Initial Congig
         storageReference = ConfigFirebase.getStorageReference();
@@ -89,7 +91,7 @@ public class ConfigUserActivity extends AppCompatActivity {
         Intent intent = getIntent();
         nameUser = intent.getStringExtra("nameUser");
 
-        city.setText(nameUser);
+        textNameUser.setText(nameUser);
 
 
         btChoosePicture.setOnClickListener(new View.OnClickListener() {

@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity
     private String nameUser;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -246,12 +247,13 @@ public class MainActivity extends AppCompatActivity
 
     public void getValueConfig(){
         DatabaseReference databaseReference = ConfigFirebase.getReferenceFirebase();
-        DatabaseReference data = databaseReference.child("users").child(currentUser).child("nameUser");
+        DatabaseReference data = databaseReference.child("users").child(currentUser);
 
         data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                nameUser = dataSnapshot.getValue().toString();
+                nameUser = dataSnapshot.child("nameUser").getValue().toString();
+
                 Intent intent = new Intent(MainActivity.this, ConfigUserActivity.class);
                 intent.putExtra("nameUser", nameUser);
 

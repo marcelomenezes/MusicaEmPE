@@ -16,101 +16,134 @@
         tools:context="com.parse.starter.activity.CadastroActivity">
 
         <RelativeLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/content_perfil_artista"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:focusable="true"
+            android:layout_height="match_parent"
             android:focusableInTouchMode="true">
-            <ImageView
-                android:id="@+id/imagem_perfil_config"
-                android:layout_width="150dp"
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/image_profile_artist_config"
+                android:layout_width="156dp"
+                android:layout_height="156dp"
                 android:layout_alignParentTop="true"
-                android:layout_height="150dp"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="50dp" />
+                android:layout_marginLeft="110dp"
+                android:layout_marginTop="50dp"
+                app:civ_border_width="5dp"
+                app:civ_border_color="#FFFFFFFF"/>
+            <!--
+                    <ImageView
+
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="110dp"
+                        android:layout_marginTop="50dp"
+                        android:src="@drawable/user"/>
+            -->
+            <ImageButton
+                android:id="@+id/imgbt_camera_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_alignStart="@id/image_profile_artist_config"
+                android:layout_alignBottom="@id/image_profile_artist_config"
+                android:src="@drawable/ic_photo_camera"/>
+
+            <ImageButton
+                android:id="@+id/imgbt_gallery_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_alignEnd="@id/image_profile_artist_config"
+                android:layout_alignBottom="@id/image_profile_artist_config"
+                android:src="@drawable/ic_photo"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_config_name_profile_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image_profile_artist_config"
+                app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
+
+                <EditText
+                    android:id="@+id/edittext_config_name_profile_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textview_cidade_config"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="Nome" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/edittext_config_city_profile_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_config_name_profile_artist"
+                app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="Cidade Natal" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/edittext_config_neighbourhood_profile_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edittext_config_city_profile_artist"
+                app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="Bairro" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/edittext_config_intro_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edittext_config_neighbourhood_profile_artist"
+                app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="Intro" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/edittext_config_rythm_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edittext_config_intro_artist"
+                app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="Adicione Ritmos" />
+            </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/botao_trocar_imagem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/imagem_perfil_config"
-                android:layout_alignStart="@+id/imagem_perfil_config"
-                android:layout_below="@+id/imagem_perfil_config"
-                android:layout_marginLeft="1dp"
-                android:layout_marginStart="1dp"
-                android:text="Alterar Imagem" />
-
-            <TextView
-                android:id="@+id/textview_cidade_config"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/botao_trocar_imagem"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:focusableInTouchMode="true"
-                android:text="Cidade:"/>
-
-            <EditText
-                android:hint="Cidade Natal"
-                android:id="@+id/text_config_cidade_perfil"
-                android:layout_width="320sp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textview_cidade_config"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="1dp"
-                android:inputType="textCapWords"/>
-
-            <TextView
-                android:id="@+id/textview_introducao_config"
-                android:layout_below="@+id/text_config_cidade_perfil"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="Biografia:" />
-
-            <EditText
-                android:hint="Biografia"
-                android:id="@+id/text_config_introducao_perfil"
-                android:layout_height="wrap_content"
-                android:layout_width="320sp"
-                android:layout_below="@+id/textview_introducao_config"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="1dp"
-                android:inputType="textCapWords"/>
-
-            <TextView
-                android:id="@+id/lista_ritmos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_config_introducao_perfil"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="Ritmos:" />
-        <!--
-            <info.devexchanges.chipedittext.ContactsCompletionView
-                android:hint="Busque Ritmos"
-                android:imeOptions="actionDone"
-                android:inputType="text|textNoSuggestions|textMultiLine"
-                android:nextFocusDown="@+id/editText"
-                android:id="@+id/text_config_ritmos_artista"
-                android:layout_width="320sp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lista_ritmos"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="1dp"
-                android:textSize="19sp"/>
-        -->
-            <Button
-                android:text="Salvar Alteração"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_config_ritmos_artista"
                 android:id="@+id/botao_salvar_alteracao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edittext_config_rythm_artist"
+                android:layout_marginStart="110dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="100dp" />
+                android:text="Salvar Alteração" />
+
         </RelativeLayout>
 
     </ScrollView>
