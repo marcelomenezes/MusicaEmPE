@@ -22,7 +22,7 @@
             android:layout_width="156dp"
             android:layout_height="156dp"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="110dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             app:civ_border_width="5dp"
             app:civ_border_color="#FFFFFFFF"/>
@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Adicione Ritmos" />
+            android:hint="Adicione Ritmos de Interesse" />
         </android.support.design.widget.TextInputLayout>
 
         <Button

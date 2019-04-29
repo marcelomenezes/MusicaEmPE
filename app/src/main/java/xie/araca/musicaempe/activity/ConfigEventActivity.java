@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.StorageReference;
@@ -41,10 +42,10 @@ public class ConfigEventActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Button btSave = findViewById(R.id.bt_save_event);
-        final EditText edNameEvent = findViewById(R.id.text_config_name_event);
-        final EditText edDetailsEvent = findViewById(R.id.text_config_intro_event);
+        final EditText edNameEvent = findViewById(R.id.edittext_config_name_event);
+        final EditText edDetailsEvent = findViewById(R.id.edittext_config_intro_event);
 
-        Button btChoosePicture = findViewById(R.id.bt_choose_image_event);
+        ImageButton btChoosePicture = findViewById(R.id.imgbt_gallery_event);
 
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,8 +1,13 @@
 package xie.araca.musicaempe.model;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import xie.araca.musicaempe.config.ConfigFirebase;
+import xie.araca.musicaempe.helper.UserFirebase;
 
 public class User {
 
@@ -13,6 +18,19 @@ public class User {
     String password;
     String email;
     String id;
+    String type;
+    String city;
+    String neighborhood;
+    String intro;
+    String photo;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public User(){
 
@@ -22,6 +40,36 @@ public class User {
         DatabaseReference databaseReference = ConfigFirebase.getReferenceFirebase();
         databaseReference.child("users").child(getId()).setValue(this);
     }
+
+    public void update(){
+
+        String UserId = UserFirebase.getCurrentUserId();
+        DatabaseReference database = ConfigFirebase.getReferenceFirebase();
+
+        DatabaseReference userRef = database.child("users")
+                .child( UserId);
+
+        Map<String, Object> valueUser = convertToMap();
+
+        userRef.updateChildren( valueUser );
+    }
+
+    @Exclude
+    public Map<String, Object> convertToMap(){
+
+        HashMap<String, Object> usuarioMap = new HashMap<>();
+        usuarioMap.put("email", getEmail() );
+        usuarioMap.put("nameUser", getNameUser() );
+        usuarioMap.put("photo", getPhoto() );
+        usuarioMap.put("city", getCity());
+        usuarioMap.put("rythm", getRythm());
+        usuarioMap.put("neighbourhood", getNeighborhood());
+        usuarioMap.put("intro", getIntro());
+
+        return usuarioMap;
+    }
+
+
     public String getId() {
         return id;
     }
@@ -76,5 +124,37 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

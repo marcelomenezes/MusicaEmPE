@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,6 +27,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -32,10 +38,16 @@ import java.io.ByteArrayOutputStream;
 
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.config.ConfigFirebase;
+import xie.araca.musicaempe.databinding.ActivityConfigBinding;
+import xie.araca.musicaempe.databinding.ContentConfigArtistBinding;
 import xie.araca.musicaempe.helper.Permission;
 import xie.araca.musicaempe.helper.UserFirebase;
+import xie.araca.musicaempe.model.User;
+
 
 public class ConfigArtistActivity extends AppCompatActivity {
+
+    ActivityConfigBinding binding;
 
     private String[] permissionsNeed = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -47,15 +59,27 @@ public class ConfigArtistActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private EditText city;
+    private Button buttonSave;
 
     private StorageReference storageReference;
     private String currentUserId;
 
     private String nameUser;
+    private String textCity;
+    private String textNeighborhood;
+    private String textIntro;
+    private String textRythm;
+
+    private String name;
+    private String stringCity;
+    private String neighborhood;
+    private String intro;
+    private String rythm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_config);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_config);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -63,15 +87,15 @@ public class ConfigArtistActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         imageView = findViewById(R.id.image_profile_artist_config);
         city = findViewById(R.id.edittext_config_intro_artist);
-        ImageButton btChoosePicture = findViewById(R.id.imgbt_gallery_artist);
-        ImageButton btTakePicture = findViewById(R.id.imgbt_camera_artist);
+        //buttonSave = findViewById(R.id.button_save_config_artist);
+
 
         //Initial Congig
         storageReference = ConfigFirebase.getStorageReference();
         currentUserId = UserFirebase.getCurrentUserId();
 
         //Retrieve User data
-        FirebaseUser user = UserFirebase.getCurrentUser();
+        final FirebaseUser user = UserFirebase.getCurrentUser();
 
         Uri uri = user.getPhotoUrl();
         if (uri != null){
@@ -84,33 +108,89 @@ public class ConfigArtistActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         nameUser = intent.getStringExtra("nameUser");
+        textCity = intent.getStringExtra("city");
+        textNeighborhood = intent.getStringExtra("neighborhood");
+        textIntro = intent.getStringExtra("intro");
+        textRythm = intent.getStringExtra("rythm");
 
-        city.setText(nameUser);
+        binding.contentConfigArtist.edittextConfigNameProfileUser.setText(nameUser);
+        binding.contentConfigArtist.edittextConfigCityProfileArtist.setText(textCity);
+        binding.contentConfigArtist.edittextConfigNeighbourhoodProfileArtist.setText(textNeighborhood);
+        binding.contentConfigArtist.edittextConfigIntroArtist.setText(textIntro);
+        binding.contentConfigArtist.edittextConfigRythmArtist.setText(textRythm);
 
-
-        btChoosePicture.setOnClickListener(new View.OnClickListener() {
+        binding.contentConfigArtist.imgbtGalleryArtist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validatePermission();
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 if(i.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(i, SELECT_GALLERY);
+                }else{
+                    alertValidatePermission();
                 }
             }
         });
 
-        btTakePicture.setOnClickListener(new View.OnClickListener() {
+        binding.contentConfigArtist.imgbtCameraArtist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validatePermission();
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if(i.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(i, SELECT_CAMERA);
+                }else{
+                    alertValidatePermission();
                 }
             }
         });
 
+        binding.contentConfigArtist.buttonSaveConfigArtist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                name = binding.contentConfigArtist.edittextConfigNameProfileUser.getText().toString();
+                stringCity = binding.contentConfigArtist.edittextConfigCityProfileArtist.getText().toString();
+                neighborhood = binding.contentConfigArtist.edittextConfigNeighbourhoodProfileArtist.getText().toString();
+                intro = binding.contentConfigArtist.edittextConfigIntroArtist.getText().toString();
+                rythm = binding.contentConfigArtist.edittextConfigRythmArtist.getText().toString();
+
+                if (!name.isEmpty()){
+                    if (!stringCity.isEmpty()){
+                        if (!neighborhood.isEmpty()){
+                            if(!intro.isEmpty()){
+                                if (!rythm.isEmpty()){
+                                    User user = new User();
+                                    user.setNameUser(name);
+                                    user.setCity(stringCity);
+                                    user.setNeighborhood(neighborhood);
+                                    user.setIntro(intro);
+                                    user.setRythm(rythm);
+                                    UserFirebase.updateNameUser(name);
+                                    try {
+                                        user.update();
+                                        Toast.makeText(ConfigArtistActivity.this, "Dados Salvos", Toast.LENGTH_SHORT).show();
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+                                }else{
+                                    Toast.makeText(ConfigArtistActivity.this, "Preencha com ao menos um ritmo", Toast.LENGTH_SHORT).show();
+                                }
+                            }else{
+                                Toast.makeText(ConfigArtistActivity.this, "Preencha uma pequena introdução sobre a banda/artista", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(ConfigArtistActivity.this, "Preencha o bairro", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(ConfigArtistActivity.this, "Preencha a cidade", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(ConfigArtistActivity.this, "Preencha o nome do Artista/Banda", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     @Override

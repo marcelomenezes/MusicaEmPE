@@ -38,7 +38,7 @@
         android:background="@drawable/fundo_caixa_texto"
         android:ems="10"
         android:hint="@string/login_username"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:padding="16dp"
         android:text=""
         android:textColor="@android:color/white"
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/botaoLogarId"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="7dp"
         android:onClick="abrirCadastroUsuario"
         android:text="@string/no_login"
         android:textColor="@color/background_material_light" />

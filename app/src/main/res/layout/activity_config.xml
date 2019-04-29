@@ -18,12 +18,14 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@drawable/fundo_pe"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_config_artist" />
+    <include
+        android:id="@+id/content_config_artist"
+        layout="@layout/content_config_artist" />
 
 
 

@@ -14,9 +14,19 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         android:id="@+id/content_perfil_artista"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        tools:context="com.parse.starter.activity.PerfilArtistaActivity">
+        android:focusableInTouchMode="true">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/image_profile_event_config"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            app:civ_border_width="5dp"
+            app:civ_border_color="#FFFFFFFF" />
+    <!--
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -24,73 +34,91 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_centerHorizontal="true"
             android:id="@+id/imagem_evento_config"
             android:layout_marginTop="100dp" />
-
-        <TextView
-            android:id="@+id/text_data_id"
+        -->
+        <ImageButton
+            android:id="@+id/imgbt_camera_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imagem_evento_config"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:text="Data:" />
+            android:layout_marginStart="5dp"
+            android:layout_alignStart="@id/image_profile_user_config"
+            android:layout_alignBottom="@id/image_profile_user_config"
+            android:src="@drawable/ic_photo_camera"/>
 
-        <EditText
-            android:layout_width="160sp"
-            android:layout_below="@+id/text_data_id"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_start_date_event"
-            android:focusableInTouchMode="false"
-            android:inputType="date"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp"
-            android:hint="De: dd/mm/aaaa" />
-
-        <EditText
-            android:layout_width="160sp"
-            android:layout_below="@+id/text_data_id"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_end_date_event"
-            android:inputType="date"
-            android:layout_marginTop="1dp"
-            android:focusableInTouchMode="false"
-            android:layout_toEndOf="@+id/text_start_date_event"
-            android:hint="Até: dd/mm/aaaa" />
-
-        <TextView
-            android:id="@+id/textview_evento_id"
+        <ImageButton
+            android:id="@+id/imgbt_gallery_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_end_date_event"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Evento:" />
+            android:layout_marginStart="50dp"
+            android:layout_alignEnd="@id/image_profile_user_config"
+            android:layout_alignBottom="@id/image_profile_user_config"
+            android:src="@drawable/ic_photo"/>
 
-        <EditText
-            android:hint="Nome do Evento"
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/text_config_name_event"
-            android:layout_width="320sp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textview_evento_id"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp" />
+            android:layout_below="@+id/image_profile_event_config"
+            app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
+            <EditText
+                android:hint="Nome do Evento"
+                android:id="@+id/edittext_config_name_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_start_date_event"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="1dp" />
+        </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textview_detalhes_evento"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_start_date_event"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_config_name_event"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Detalhes:" />
+            app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
 
         <EditText
-            android:hint="Detalhes do Evento"
-            android:id="@+id/text_config_intro_event"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_width="320sp"
+            android:id="@+id/edittext_start_date_event"
+            android:focusableInTouchMode="false"
+            android:inputType="date"
+            android:layout_marginStart="20dp"
+            android:hint="De: dd/mm/aaaa" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_end_date_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_start_date_event"
+            app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edittext_end_date_event"
+            android:inputType="date"
+            android:focusableInTouchMode="false"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Até: dd/mm/aaaa" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_config_intro_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_end_date_event"
+            app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
+        <EditText
+            android:hint="Detalhes do Evento"
+            android:id="@+id/edittext_config_intro_event"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:layout_below="@+id/textview_detalhes_evento"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp" />
+            android:layout_marginEnd="20dp"/>
+        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:id="@+id/textview_endereco_config"
@@ -98,7 +126,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_config_intro_event"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="1dp"
             android:text="Endereço:" />
 
         <Button
@@ -108,16 +136,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_below="@+id/textview_endereco_config"
             android:id="@+id/bt_save_event"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="120dp" />
-
-        <Button
-            android:text="Escolher Imagem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imagem_evento_config"
-            android:layout_toEndOf="@+id/imagem_evento_config"
-            android:layout_marginStart="30dp"
-            android:id="@+id/bt_choose_image_event" />
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 </ScrollView>

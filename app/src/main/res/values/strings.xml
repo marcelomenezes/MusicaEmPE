@@ -25,14 +25,14 @@
     <string name="title_activity_login">LoginActivity</string>
 
     <string name="signup_name">Digite o nome do(a) artista/grupo/pessoa</string>
-    <string name="signup_username">Digite o nome de usuário para login</string>
+    <string name="signup_username">Digite o nome de login</string>
     <string name="signup_email">Digite seu email</string>
     <string name="signup_password">Digite sua senha</string>
 
     <string name="login_username">Usuário</string>
     <string name="login_password">Senha</string>
 
-    <string name="checkArtista">Caso seja artista, marque.</string>
+    <string name="checkArtista">Escolha Tipo de Usuário(a)/Artista/Produtor(a):</string>
 
     <string name="no_login">Não tem conta? Clique aqui para cadastrar.</string>
     <string name="no_signup">Já tem conta? Clique aqui.</string>
@@ -45,6 +45,9 @@
     <string name="error_signup_weak_password">Digite uma senha com mais de 6 caracteres.</string>
     <string name="error_signup_invalid_email">Digite um email válido.</string>
     <string name="error_signup_user_collision">Usuário existente, digite um novo nome de usuário.</string>
+    
+    <string name="error_login_invalid_user">Digite um email válido</string>
+    <string name="error_login_invalid_credetials">Email e senha não correspondem</string>
     
     <string name="hint_search">Pesquisar</string>
 </resources>

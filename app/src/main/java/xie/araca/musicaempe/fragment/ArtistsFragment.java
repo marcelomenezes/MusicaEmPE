@@ -86,7 +86,9 @@ public class ArtistsFragment extends Fragment implements SwipeRefreshLayout.OnRe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()){
                     User user = data.getValue(User.class);
-                    listArtist.add(user);
+                        if (user.getType().equals( "Artista"))
+                        listArtist.add(user);
+
                 }
                 adapter.notifyDataSetChanged();
             }
