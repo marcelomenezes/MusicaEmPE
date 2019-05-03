@@ -23,12 +23,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 
@@ -82,8 +86,8 @@ public class ConfigUserActivity extends AppCompatActivity {
         Uri uri = user.getPhotoUrl();
         if (uri != null){
             Glide.with(ConfigUserActivity.this)
-                .load(uri)
-                .into(imageView);
+                    .load(uri)
+                    .into(imageView);
         }else{
             imageView.setImageResource(R.drawable.user);
         }
@@ -146,23 +150,32 @@ public class ConfigUserActivity extends AppCompatActivity {
                     byte[] imageData = baos.toByteArray();
 
                     //save image in Firebase
-                    StorageReference imageRef = storageReference
+                    final StorageReference imageRef = storageReference
                             .child("images")
                             .child("profile")
                             .child(currentUserId + ".jpeg");
 
+
                     UploadTask uploadTask = imageRef.putBytes(imageData);
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
+
+                    uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConfigUserActivity.this, "Failed to uploud Image", Toast.LENGTH_SHORT).show();
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()){
+                                throw task.getException();
+                            }
+                            return imageRef.getDownloadUrl();
                         }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(ConfigUserActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
-                            Uri uri = taskSnapshot.getDownloadUrl();
-                            updateProfileImage(uri);
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(ConfigUserActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                                Uri uri = task.getResult();
+                                updateProfileImage(uri);
+                            }else {
+                                Toast.makeText(ConfigUserActivity.this, "Failed to uploud Image", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
 

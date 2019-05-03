@@ -42,7 +42,6 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,6 +61,7 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         recyclerView.setAdapter(adapter);
         return view;
     }
+
     @Override
     public void onStart() {
         super.onStart();

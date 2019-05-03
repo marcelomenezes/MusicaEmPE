@@ -63,7 +63,7 @@ public class User {
         usuarioMap.put("photo", getPhoto() );
         usuarioMap.put("city", getCity());
         usuarioMap.put("rythm", getRythm());
-        usuarioMap.put("neighbourhood", getNeighborhood());
+        usuarioMap.put("neighborhood", getNeighborhood());
         usuarioMap.put("intro", getIntro());
 
         return usuarioMap;

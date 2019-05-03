@@ -15,6 +15,9 @@ public class Event {
     String id;
     String detailsEvent;
     String addressEvent;
+    String latlng;
+    String latitude;
+    String longitude;
 
 
     public Event(){
@@ -87,5 +90,27 @@ public class Event {
     }
 
 
+    public String getLatlng() {
+        return latlng;
+    }
 
+    public void setLatlng(String latlng) {
+        this.latlng = latlng;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
 }

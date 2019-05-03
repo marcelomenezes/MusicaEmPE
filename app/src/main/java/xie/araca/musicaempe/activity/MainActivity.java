@@ -42,6 +42,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.adapter.EventsTabsAdapter;
@@ -96,9 +97,6 @@ public class MainActivity extends AppCompatActivity
     private String currentUserId;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,7 +140,7 @@ public class MainActivity extends AppCompatActivity
 
         Uri uri = user.getPhotoUrl();
         if (uri != null){
-            Glide.with(MainActivity.this)
+            Picasso.with(this)
                     .load(uri)
                     .into(imageView);
         }else{
@@ -151,7 +149,6 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -218,7 +215,7 @@ public class MainActivity extends AppCompatActivity
                 inflater.inflate(R.menu.main, menu);
             else if (type.equals("Produtor(a)"))
                 inflater.inflate(R.menu.main, menu);
-            else
+            else if(type.equals("Usuário(a)"))
                 inflater.inflate(R.menu.main_user, menu);
 
         }
