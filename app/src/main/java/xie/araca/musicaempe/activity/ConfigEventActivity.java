@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -62,7 +63,9 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
     private StorageReference storageReference;
     public static final String TAG = MapFragment.class.getSimpleName();
 
-    private String currentUserId;
+    private Bitmap image = null;
+    private byte[] imageData = null;
+    private Uri uri;
 
     private static final int SELECT_CAMERA = 100;
     private static final int SELECT_GALLERY = 200;
@@ -114,8 +117,7 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
         configNameEventEdt = findViewById(R.id.edittext_config_name_event);
         configIntroEventEdt = findViewById(R.id.edittext_config_intro_event);
 
-        imageView.setImageResource(R.drawable.user);
-        currentUserId = UserFirebase.getCurrentUserId();
+        imageView.setImageResource(R.drawable.ic_action_music_1);
 
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +133,14 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
                 event.setLatlng(newlatlng.toString());
                 event.setLatitude(coordl1);
                 event.setLongitude(coordl2 );
-                saveEvent();
+                if (imageData != null) {
+                    saveEventPhoto(imageData);
+                }else{
+                    event.setPhotoEvent("");
+                    event.save();
+                    finish();
+                }
+                Toast.makeText(ConfigEventActivity.this, "Criando Evento", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -164,17 +173,7 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
 
         setDate();
 
-        //Retrieve User data
-        final FirebaseUser user = UserFirebase.getCurrentUser();
 
-        Uri uri = user.getPhotoUrl();
-        if (uri != null){
-            Glide.with(ConfigEventActivity.this)
-                    .load(uri)
-                    .into(imageView);
-        }else{
-            imageView.setImageResource(R.drawable.ic_action_music_1);
-        }
 
         /**
          * Initialize Places. For simplicity, the API key is hard-coded. In a production
@@ -222,16 +221,38 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void saveEvent(){
+    private void saveEventPhoto(byte[] imageData){
         storageReference = ConfigFirebase.getStorageReference();
-        StorageReference storage = storageReference
+        final StorageReference imageRef = storageReference
+                .child("images")
                 .child("events")
-                .child(event.getId());
-
-        event.save();
-        finish();
-
+                .child(event.getId() + ".jpeg");
+        UploadTask uploadTask = imageRef.putBytes(imageData);
+        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()){
+                    throw task.getException();
+                }
+                return imageRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(ConfigEventActivity.this, "Evento Criado", Toast.LENGTH_SHORT).show();
+                    uri = task.getResult();
+                    event.setPhotoEvent(uri.toString());
+                    event.save();
+                    finish();
+                    SharedPreferences.Editor editor = getSharedPreferences("photoEvent", MODE_PRIVATE).edit();
+                    editor.putString("fotoEvento", uri.toString());
+                    editor.commit();
+                }
+            }
+        });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -240,7 +261,7 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
 
         //Testar processor de retorno dos dados
         if(resultCode == RESULT_OK){
-            Bitmap image = null;
+
 
             try{
                 switch (requestCode){
@@ -259,9 +280,9 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
                     //retrive data from image
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     image.compress(Bitmap.CompressFormat.JPEG, 70, baos);
-                    byte[] imageData = baos.toByteArray();
+                    imageData = baos.toByteArray();
 
-                    //save image in Firebase
+             /*       //save image in Firebase
                     final StorageReference imageRef = storageReference
                             .child("images")
                             .child("events")
@@ -289,7 +310,7 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
                         }
                     });
 
-
+*/
                 }
 
             }catch (Exception e){

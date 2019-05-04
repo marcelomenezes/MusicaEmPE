@@ -1,11 +1,13 @@
 package xie.araca.musicaempe.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -47,7 +49,16 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistHolder>{
 
         User user = mUsers.get(position);
         holder.artistName.setText(user.getNameUser());
-        holder.artistCity.setText(user.getEmail());
+        holder.artistCity.setText(user.getCity());
+
+        if (user.getPhoto() != null ){
+                Uri uri = Uri.parse(user.getPhoto());
+            Glide.with(context)
+                    .load(uri)
+                    .into(holder.artistPicture);
+        }else {
+            holder.artistPicture.setImageResource(R.drawable.user);
+        }
         //holder.artistName.setText(firebase.child("username").toString());
         //holder.artistCity.setText(firebase.child("email").toString());
         //holder.artistPicture

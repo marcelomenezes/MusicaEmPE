@@ -6,7 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/icon_artist"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -14,7 +14,18 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:src="@drawable/user"/>
+        android:src="@drawable/user"/> -->
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/icon_artist"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/user"
+        app:civ_border_color="#FFFFFFFF"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

@@ -3,6 +3,7 @@ package xie.araca.musicaempe.activity;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -33,12 +34,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.config.ConfigFirebase;
@@ -52,6 +56,8 @@ import xie.araca.musicaempe.model.User;
 public class ConfigArtistActivity extends AppCompatActivity {
 
     ActivityConfigBinding binding;
+    User user = new User();
+    User auxUser;
 
     private String[] permissionsNeed = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -67,6 +73,7 @@ public class ConfigArtistActivity extends AppCompatActivity {
 
     private StorageReference storageReference;
     private String currentUserId;
+    private FirebaseUser firebaseUser;
 
     private String nameUser;
     private String textCity;
@@ -79,6 +86,7 @@ public class ConfigArtistActivity extends AppCompatActivity {
     private String neighborhood;
     private String intro;
     private String rythm;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +105,13 @@ public class ConfigArtistActivity extends AppCompatActivity {
         //Initial Congig
         storageReference = ConfigFirebase.getStorageReference();
         currentUserId = UserFirebase.getCurrentUserId();
+        auxUser = UserFirebase.getDataUserLoggedIn();
+        firebaseUser = UserFirebase.getCurrentUser();
 
         //Retrieve User data
-        final FirebaseUser user = UserFirebase.getCurrentUser();
+        final FirebaseUser userFirebase = UserFirebase.getCurrentUser();
 
-        Uri uri = user.getPhotoUrl();
+        Uri uri = userFirebase.getPhotoUrl();
         if (uri != null){
             Glide.with(ConfigArtistActivity.this)
                     .load(uri)
@@ -110,12 +120,14 @@ public class ConfigArtistActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.user);
         }
 
+
         Intent intent = getIntent();
         nameUser = intent.getStringExtra("nameUser");
         textCity = intent.getStringExtra("city");
         textNeighborhood = intent.getStringExtra("neighborhood");
         textIntro = intent.getStringExtra("intro");
         textRythm = intent.getStringExtra("rythm");
+        type = intent.getStringExtra("type");
 
         binding.contentConfigArtist.edittextConfigNameProfileUser.setText(nameUser);
         binding.contentConfigArtist.edittextConfigCityProfileArtist.setText(textCity);
@@ -164,19 +176,25 @@ public class ConfigArtistActivity extends AppCompatActivity {
                         if (!neighborhood.isEmpty()){
                             if(!intro.isEmpty()){
                                 if (!rythm.isEmpty()){
-                                    User user = new User();
                                     user.setNameUser(name);
                                     user.setCity(stringCity);
                                     user.setNeighborhood(neighborhood);
                                     user.setIntro(intro);
                                     user.setRythm(rythm);
-                                    try {
+                                    user.setEmail(firebaseUser.getEmail());
+                                    user.setId(firebaseUser.getUid());
+                                    user.setType(type);
+                                    if(firebaseUser.getPhotoUrl() != null){
+                                        SharedPreferences preferences = getSharedPreferences("photo", MODE_PRIVATE);
+                                        String foto = preferences.getString("foto", null);
+                                        user.setPhoto(foto);
+                                    }else{
+                                        user.setPhoto(" ");
+                                    }
                                         user.update();
                                         UserFirebase.updateNameUser(user.getNameUser());
                                         Toast.makeText(ConfigArtistActivity.this, "Dados Salvos", Toast.LENGTH_SHORT).show();
-                                    }catch (Exception e){
-                                        e.printStackTrace();
-                                    }
+
                                 }else{
                                     Toast.makeText(ConfigArtistActivity.this, "Preencha com ao menos um ritmo", Toast.LENGTH_SHORT).show();
                                 }
@@ -229,6 +247,8 @@ public class ConfigArtistActivity extends AppCompatActivity {
                             .child("profile")
                             .child(currentUserId + ".jpeg");
 
+
+
                     UploadTask uploadTask = imageRef.putBytes(imageData);
                     uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
@@ -245,6 +265,10 @@ public class ConfigArtistActivity extends AppCompatActivity {
                                 Toast.makeText(ConfigArtistActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                 Uri uri = task.getResult();
                                 updateProfileImage(uri);
+                                SharedPreferences.Editor editor = getSharedPreferences("photo", MODE_PRIVATE).edit();
+                                editor.putString("foto", uri.toString());
+                                editor.commit();
+
                             }else {
                                 Toast.makeText(ConfigArtistActivity.this, "Failed to uploud Image", Toast.LENGTH_SHORT).show();
                             }
@@ -292,5 +316,17 @@ public class ConfigArtistActivity extends AppCompatActivity {
 
     public void updateProfileImage(Uri uri){
         UserFirebase.updateProfilePicture(uri);
+        savePhotoUrl(uri);
+    }
+
+    public void savePhotoUrl(Uri uri){
+
+        auxUser.setPhoto(uri.toString());
+        auxUser.setRythm(textRythm);
+        auxUser.setCity(textCity);
+        auxUser.setIntro(textIntro);
+        auxUser.setNeighborhood(textNeighborhood);
+        auxUser.setType(type);
+        auxUser.update();
     }
 }

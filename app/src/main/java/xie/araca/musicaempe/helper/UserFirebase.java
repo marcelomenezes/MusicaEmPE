@@ -3,12 +3,18 @@ package xie.araca.musicaempe.helper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import xie.araca.musicaempe.config.ConfigFirebase;
 import xie.araca.musicaempe.model.User;
@@ -29,12 +35,11 @@ public class UserFirebase {
             public static boolean updateProfilePicture(Uri uri){
 
                 try {
-                    FirebaseUser user = getCurrentUser();
+                    FirebaseUser userLogged = getCurrentUser();
                     UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
                             .setPhotoUri(uri)
                             .build();
-
-                    user.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    userLogged.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (!task.isSuccessful()){
@@ -96,8 +101,8 @@ public class UserFirebase {
         FirebaseUser firebaseUser = getCurrentUser();
 
         User usuario = new User();
-        usuario.setEmail( firebaseUser.getEmail() );
         usuario.setNameUser( firebaseUser.getDisplayName() );
+        usuario.setEmail(firebaseUser.getEmail());
 
         if ( firebaseUser.getPhotoUrl() == null ){
             usuario.setPhoto("");
@@ -108,4 +113,5 @@ public class UserFirebase {
         return usuario;
 
     }
+
 }

@@ -1,6 +1,7 @@
 package xie.araca.musicaempe.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.List;
@@ -105,6 +107,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
         Event event = mEvents.get(position);
         holder.eventName.setText(event.getNameEvent());
         holder.eventCity.setText(event.getDetailsEvent());
+        if (event.getPhotoEvent() != null ){
+            Uri uri = Uri.parse(event.getPhotoEvent());
+            Glide.with(context)
+                    .load(uri)
+                    .into(holder.eventPicture);
+        }else {
+            holder.eventPicture.setImageResource(R.drawable.user);
+        }
         //holder.artistName.setText(firebase.child("username").toString());
         //holder.artistCity.setText(firebase.child("email").toString());
         //holder.artistPicture

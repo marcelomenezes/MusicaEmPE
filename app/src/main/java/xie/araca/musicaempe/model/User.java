@@ -54,7 +54,6 @@ public class User {
         userRef.updateChildren( valueUser );
     }
 
-    @Exclude
     public Map<String, Object> convertToMap(){
 
         HashMap<String, Object> usuarioMap = new HashMap<>();

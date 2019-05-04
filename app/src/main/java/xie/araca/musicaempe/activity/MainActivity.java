@@ -85,10 +85,11 @@ public class MainActivity extends AppCompatActivity
 
     private String nameUser;
     private String type;
-    private String city;
+    private String city = "";
     private String neighborhood;
     private String intro;
     private String rythm;
+    private String email;
 
 
     private String typeValidate;
@@ -315,7 +316,7 @@ public class MainActivity extends AppCompatActivity
         DatabaseReference databaseReference = ConfigFirebase.getReferenceFirebase();
         DatabaseReference data = databaseReference.child("users").child(currentUser);
 
-        data.addValueEventListener(new ValueEventListener() {
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 nameUser = dataSnapshot.child("nameUser").getValue().toString();
@@ -332,6 +333,7 @@ public class MainActivity extends AppCompatActivity
                     intent.putExtra("neighborhood", neighborhood);
                     intent.putExtra("intro", intro);
                     intent.putExtra("rythm", rythm);
+                    intent.putExtra("type", type);
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(MainActivity.this, ConfigUserActivity.class);
@@ -340,6 +342,7 @@ public class MainActivity extends AppCompatActivity
                     intent.putExtra("intro", intro);
                     intent.putExtra("nameUser", nameUser);
                     intent.putExtra("rythm", rythm);
+                    intent.putExtra("type", type);
                     startActivity(intent);
                 }
             }
