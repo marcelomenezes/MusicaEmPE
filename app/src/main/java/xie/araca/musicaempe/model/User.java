@@ -3,13 +3,14 @@ package xie.araca.musicaempe.model;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import xie.araca.musicaempe.config.ConfigFirebase;
 import xie.araca.musicaempe.helper.UserFirebase;
 
-public class User {
+public class User implements Serializable {
 
     String nameUser;
     String flaguser;

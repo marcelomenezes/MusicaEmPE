@@ -10,15 +10,26 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import xie.araca.musicaempe.R;
+import xie.araca.musicaempe.config.ConfigFirebase;
+import xie.araca.musicaempe.model.Event;
+import xie.araca.musicaempe.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class EventsMapFragment extends Fragment implements OnMapReadyCallback {
 
-
+    private ValueEventListener valueEventListener;
+    private DatabaseReference databaseReference;
+    private GoogleMap mMap;
     public EventsMapFragment() {
         // Required empty public constructor
     }
@@ -29,6 +40,7 @@ public class EventsMapFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_events_map, container, false);
+        databaseReference = ConfigFirebase.getReferenceFirebase().child("events");
 
         //SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager()
         //        .findFragmentById(R.id.map);
@@ -39,6 +51,34 @@ public class EventsMapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap){
+        mMap = googleMap;
+        valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    Event event = data.getValue(Event.class);
+                    double latitude = Double.parseDouble(event.getLatitude());
+                    double longitude = Double.parseDouble(event.getLongitude());
+                    LatLng location = new LatLng(latitude, longitude);
+
+                    mMap.addMarker( new MarkerOptions().position(location).title(event.getNameEvent()));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        getMapEvents();
+    }
+
+    public void getMapEvents(){
 
     }
 }

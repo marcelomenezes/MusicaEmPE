@@ -17,19 +17,23 @@
         android:layout_height="match_parent"
         tools:context="com.parse.starter.activity.PerfilArtistaActivity">
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/image_profile_artist"
+            android:layout_width="156dp"
+            android:layout_height="156dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:id="@+id/imagem_perfil"/>
+            app:civ_border_width="5dp"
+            app:civ_border_color="#FFFFFFFF"/>
 
         <TextView
             android:id="@+id/textview_cidade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imagem_perfil"
+            android:layout_below="@+id/image_profile_artist"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:text="Cidade:" />

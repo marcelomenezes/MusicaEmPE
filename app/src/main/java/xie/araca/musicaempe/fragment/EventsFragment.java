@@ -1,6 +1,7 @@
 package xie.araca.musicaempe.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,10 +23,14 @@ import java.util.List;
 
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.activity.MainActivity;
+import xie.araca.musicaempe.activity.ProfileArtistActivity;
+import xie.araca.musicaempe.activity.ProfileEventActivity;
 import xie.araca.musicaempe.adapter.EventAdapter;
 import xie.araca.musicaempe.adapter.EventsTabsAdapter;
 import xie.araca.musicaempe.config.ConfigFirebase;
+import xie.araca.musicaempe.helper.RecyclerItemClickListener;
 import xie.araca.musicaempe.model.Event;
+import xie.araca.musicaempe.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +65,30 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         recyclerView.setHasFixedSize(true);
         adapter = new EventAdapter(listEvent, getActivity());
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnItemTouchListener( new RecyclerItemClickListener(
+                getActivity(),
+                recyclerView,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Event eventSelected = listEvent.get(position);
+                        Intent intent = new Intent(getActivity(), ProfileEventActivity.class);
+                        intent.putExtra("eventSelected", eventSelected);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+                }
+        ));
         return view;
     }
 

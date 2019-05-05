@@ -13,16 +13,19 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/content_perfil_evento"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.parse.starter.activity.PerfilArtistaActivity">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/image_profile_event"
+            android:layout_width="156dp"
+            android:layout_height="156dp"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="140dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:id="@+id/imagem_evento"/>
+            app:civ_border_width="5dp"
+            app:civ_border_color="#FFFFFFFF"/>
+
 
         <TextView
             android:layout_marginLeft="100dp"
@@ -32,7 +35,7 @@
             android:layout_marginTop="30dp"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:layout_below="@+id/imagem_evento"
+            android:layout_below="@+id/image_profile_event"
             android:id="@+id/text_nome_evento" />
 
         <TextView

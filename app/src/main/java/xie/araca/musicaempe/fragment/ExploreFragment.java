@@ -14,14 +14,23 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import xie.araca.musicaempe.R;
+import xie.araca.musicaempe.config.ConfigFirebase;
+import xie.araca.musicaempe.model.Event;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExploreFragment extends Fragment{
+public class ExploreFragment extends Fragment implements OnMapReadyCallback{
     private SupportMapFragment mapFragment;
+    private ValueEventListener valueEventListener;
+    private DatabaseReference databaseReference;
+    private GoogleMap mMap;
 
     public ExploreFragment() {
         // Required empty public constructor
@@ -35,10 +44,14 @@ public class ExploreFragment extends Fragment{
 
 
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
+        databaseReference = ConfigFirebase.getReferenceFirebase().child("events");
+
+
 
         if (mapFragment == null) {
             mapFragment = SupportMapFragment.newInstance();
-            mapFragment.getMapAsync(new OnMapReadyCallback() {
+            mapFragment.getMapAsync(this);
+                    /*new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
                     LatLng latLng = new LatLng(1.289545, 103.849972);
@@ -46,7 +59,7 @@ public class ExploreFragment extends Fragment{
                             .title("Singapore"));
                     googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 }
-            });
+            });*/
         }
 
         // R.id.map is a FrameLayout, not a Fragment
@@ -58,6 +71,30 @@ public class ExploreFragment extends Fragment{
 
     }
 
+
+    @Override
+    public void onMapReady(GoogleMap googleMap){
+        mMap = googleMap;
+        valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    Event event = data.getValue(Event.class);
+                    double latitude = Double.parseDouble(event.getLatitude());
+                    double longitude = Double.parseDouble(event.getLongitude());
+                    LatLng location = new LatLng(latitude, longitude);
+
+                    mMap.addMarker( new MarkerOptions().position(location).title(event.getNameEvent()));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
 }

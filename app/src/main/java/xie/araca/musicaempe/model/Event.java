@@ -2,11 +2,12 @@ package xie.araca.musicaempe.model;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import xie.araca.musicaempe.config.ConfigFirebase;
 
-public class Event {
+public class Event implements Serializable {
 
     String photoEvent;
     String startDate;
