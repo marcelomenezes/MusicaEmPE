@@ -40,6 +40,7 @@
 
         <TextView
             android:text="Recife"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textview_cidade"
@@ -64,6 +65,7 @@
             android:layout_below="@id/textview_introducao"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="1dp"
+            android:textSize="20sp"
             android:text="Intro"
             android:id="@+id/text_introducao_perfil" />
 
@@ -91,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lista_webView"
             android:layout_marginLeft="30dp"
+            android:textSize="20sp"
             android:layout_marginTop="5dp"
             android:text="ola" />
 
