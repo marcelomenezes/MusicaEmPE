@@ -65,6 +65,7 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         recyclerView.setHasFixedSize(true);
         adapter = new EventAdapter(listEvent, getActivity());
         recyclerView.setAdapter(adapter);
+        getEvents();
 
         recyclerView.addOnItemTouchListener( new RecyclerItemClickListener(
                 getActivity(),
@@ -92,11 +93,6 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        getEvents();
-    }
 
     @Override
     public void onStop() {

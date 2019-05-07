@@ -59,6 +59,7 @@ public class ArtistsFragment extends Fragment implements SwipeRefreshLayout.OnRe
         recyclerView.setHasFixedSize(true);
         adapter = new ArtistAdapter(listArtist, getActivity());
         recyclerView.setAdapter(adapter);
+        getArtists();
 
         recyclerView.addOnItemTouchListener( new RecyclerItemClickListener(
                 getActivity(),
@@ -86,11 +87,6 @@ public class ArtistsFragment extends Fragment implements SwipeRefreshLayout.OnRe
         return view;
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        getArtists();
-    }
 
     @Override
     public void onStop(){
@@ -98,10 +94,7 @@ public class ArtistsFragment extends Fragment implements SwipeRefreshLayout.OnRe
         databaseReference.removeEventListener(valueEventListener);
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-    }
+
 
     @Override
     public void onRefresh(){

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 <ScrollView
@@ -10,8 +12,6 @@
     android:id="@+id/scroll_artista">
 
     <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/content_perfil_artista"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +30,7 @@
             app:civ_border_color="#FFFFFFFF"/>
 
         <TextView
-            android:id="@+id/textview_cidade"
+            android:id="@+id/textview_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/image_profile_artist"
@@ -43,55 +43,61 @@
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textview_cidade"
+            android:layout_below="@+id/textview_city"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="1dp"
-            android:id="@+id/text_cidade_perfil" />
+            android:id="@+id/text_city_profile" />
 
 
         <TextView
-            android:id="@+id/textview_introducao"
+            android:id="@+id/textview_intro_profile"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Introdução:"
-            android:layout_below="@+id/text_cidade_perfil"
+            android:layout_below="@+id/text_city_profile"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textview_introducao"
+            android:layout_below="@id/textview_intro_profile"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="1dp"
             android:textSize="20sp"
             android:text="Intro"
-            android:id="@+id/text_introducao_perfil" />
+            android:id="@+id/text_intro_profile" />
 
         <TextView
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_introducao_perfil"
+            android:layout_below="@+id/text_intro_profile"
             android:layout_marginTop="10dp"
             android:text="Lista Ritmos:"
-            android:id="@+id/lista_ritmos"/>
+            android:id="@+id/list_rythms"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_rythms"
+            android:id="@+id/text_list_rythms"/>
 
         <TextView
             android:layout_marginLeft="20dp"
-            android:id="@+id/lista_webView"
+            android:id="@+id/list_webView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Redes Sociais:"
-            android:layout_below="@+id/lista_ritmos"/>
+            android:layout_below="@+id/text_list_rythms"/>
 
         <TextView
-            android:id="@+id/lista_rede"
+            android:id="@+id/list_social"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lista_webView"
+            android:layout_below="@+id/list_webView"
             android:layout_marginLeft="30dp"
             android:textSize="20sp"
             android:layout_marginTop="5dp"

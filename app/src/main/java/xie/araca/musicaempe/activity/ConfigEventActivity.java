@@ -223,9 +223,11 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
 
     private void saveEventPhoto(byte[] imageData){
         storageReference = ConfigFirebase.getStorageReference();
+        String UserId = UserFirebase.getCurrentUserId();
         final StorageReference imageRef = storageReference
                 .child("images")
                 .child("events")
+                .child(UserId)
                 .child(event.getId() + ".jpeg");
         UploadTask uploadTask = imageRef.putBytes(imageData);
         uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {

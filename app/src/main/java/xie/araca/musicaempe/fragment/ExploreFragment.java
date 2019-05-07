@@ -1,6 +1,8 @@
 package xie.araca.musicaempe.fragment;
 
 
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,8 +28,8 @@ import xie.araca.musicaempe.model.Event;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExploreFragment extends Fragment implements OnMapReadyCallback{
-    private SupportMapFragment mapFragment;
+public class ExploreFragment extends Fragment implements OnMapReadyCallback, LocationListener {
+    private SupportMapFragment supportMapFragment;
     private ValueEventListener valueEventListener;
     private DatabaseReference databaseReference;
     private GoogleMap mMap;
@@ -48,9 +50,9 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
 
 
 
-        if (mapFragment == null) {
-            mapFragment = SupportMapFragment.newInstance();
-            mapFragment.getMapAsync(this);
+        if (supportMapFragment == null) {
+            supportMapFragment = SupportMapFragment.newInstance();
+            supportMapFragment.getMapAsync(this);
                     /*new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
@@ -63,7 +65,7 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
         }
 
         // R.id.map is a FrameLayout, not a Fragment
-        getChildFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
+        getChildFragmentManager().beginTransaction().replace(R.id.map, supportMapFragment).commit();
 
 
         return view;
@@ -75,6 +77,7 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public void onMapReady(GoogleMap googleMap){
         mMap = googleMap;
+
         valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -85,6 +88,8 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
                     LatLng location = new LatLng(latitude, longitude);
 
                     mMap.addMarker( new MarkerOptions().position(location).title(event.getNameEvent()));
+                    mMap.setMyLocationEnabled(true);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 18));
                 }
 
             }
@@ -94,6 +99,30 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
 
             }
         });
+    }
+
+    @Override
+    public void onLocationChanged(Location location){
+
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 21 ));
+
+    }
+
+    @Override
+    public void onStatusChanged(String string, int i, Bundle bundle){
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s){
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s){
+
     }
 
 
