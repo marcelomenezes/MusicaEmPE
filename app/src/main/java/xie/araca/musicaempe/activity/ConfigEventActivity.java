@@ -93,6 +93,7 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
     private Double l2;
     private String coordl1;
     private String coordl2;
+    private int confirmedPresence = 0;
     //private String latitude;
     //private String longitude;
 
@@ -133,6 +134,7 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
                 event.setLatlng(newlatlng.toString());
                 event.setLatitude(coordl1);
                 event.setLongitude(coordl2 );
+                event.setConfirmedPresence(confirmedPresence);
                 if (imageData != null) {
                     saveEventPhoto(imageData);
                 }else{

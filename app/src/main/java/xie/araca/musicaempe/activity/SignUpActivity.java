@@ -47,6 +47,10 @@ public class SignUpActivity extends AppCompatActivity {
     private String neighbourhood = "";
     private String intro = "";
     private String rythm = "";
+    private String photoUrl = "";
+    private int numberOfFollowers = 0;
+    private int numberOfFollowing = 0;
+    private int numberOfEvents = 0;
 
 
     @Override
@@ -151,6 +155,10 @@ public class SignUpActivity extends AppCompatActivity {
                         user.setNeighborhood(neighbourhood);
                         user.setIntro(intro);
                         user.setRythm(rythm);
+                        user.setPhoto(photoUrl);
+                        user.setNumberOfFollowers(numberOfFollowers);
+                        user.setNumberOfFollowing(numberOfFollowing);
+                        user.setNumberOfEvents(numberOfEvents);
                         signUpUser(user);
 
                     }else {

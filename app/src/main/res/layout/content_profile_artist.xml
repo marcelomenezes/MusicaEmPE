@@ -29,13 +29,20 @@
             app:civ_border_width="5dp"
             app:civ_border_color="#FFFFFFFF"/>
 
+        <Button
+            android:layout_width="156sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_follow_profile"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/image_profile_artist"
+            android:layout_marginTop="5dp"/>
+
         <TextView
             android:id="@+id/textview_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/image_profile_artist"
+            android:layout_below="@+id/bt_follow_profile"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
             android:text="Cidade:" />
 
         <TextView

@@ -24,6 +24,9 @@ public class User implements Serializable {
     String neighborhood;
     String intro;
     String photo;
+    int numberOfEvents;
+    int numberOfFollowers;
+    int numberOfFollowing;
 
     public String getType() {
         return type;
@@ -65,6 +68,9 @@ public class User implements Serializable {
         usuarioMap.put("rythm", getRythm());
         usuarioMap.put("neighborhood", getNeighborhood());
         usuarioMap.put("intro", getIntro());
+        usuarioMap.put("numberOfFollowers", getNumberOfFollowers());
+        usuarioMap.put("numberOfFollowing", getNumberOfFollowing());
+        usuarioMap.put("numberOfEvents", getNumberOfEvents());
 
         return usuarioMap;
     }
@@ -150,6 +156,30 @@ public class User implements Serializable {
         this.intro = intro;
     }
 
+    public int getNumberOfEvents() {
+        return numberOfEvents;
+    }
+
+    public void setNumberOfEvents(int numberOfEvents) {
+        this.numberOfEvents = numberOfEvents;
+    }
+
+    public int getNumberOfFollowers() {
+        return numberOfFollowers;
+    }
+
+    public void setNumberOfFollowers(int numberOfFollowers) {
+        this.numberOfFollowers = numberOfFollowers;
+    }
+
+    public int getNumberOfFollowing() {
+        return numberOfFollowing;
+    }
+
+    public void setNumberOfFollowing(int numberOfFollowing) {
+        this.numberOfFollowing = numberOfFollowing;
+    }
+
     public String getPhoto() {
         return photo;
     }
@@ -157,4 +187,5 @@ public class User implements Serializable {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
 }

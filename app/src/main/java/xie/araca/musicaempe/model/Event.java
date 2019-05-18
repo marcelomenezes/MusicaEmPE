@@ -19,6 +19,7 @@ public class Event implements Serializable {
     String latlng;
     String latitude;
     String longitude;
+    int confirmedPresence;
 
 
     public Event(){
@@ -113,5 +114,13 @@ public class Event implements Serializable {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public int getConfirmedPresence() {
+        return confirmedPresence;
+    }
+
+    public void setConfirmedPresence(int confirmedPresence) {
+        this.confirmedPresence = confirmedPresence;
     }
 }
