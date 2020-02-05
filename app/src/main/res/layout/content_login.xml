@@ -44,16 +44,6 @@
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white" />
 
-    <Button
-        android:id="@+id/botaoLogarId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editLoginSenhaId"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
-        android:background="@drawable/fundo_botao"
-        android:text="Logar"
-        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/noSignupId"
@@ -95,6 +85,20 @@
         android:text=""
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white" />
+
+
+        <Button
+            android:id="@+id/botaoLogarId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editLoginSenhaId"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="29dp"
+            android:background="@drawable/fundo_botao"
+            android:text="Logar"
+            android:textColor="@android:color/white" />
+
+
     </RelativeLayout>
 
     </ScrollView>

@@ -8,19 +8,18 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -28,6 +27,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
@@ -61,12 +63,23 @@ public class ConfigUserActivity extends AppCompatActivity {
 
     private String nameUser;
 
+
+    String[] arrayRitmo = new String[]{"Baião", "Brega-romântico", "Brega-pop", "Brega-funk", "Ciranda",
+            "Coco", "Cavalo-marinho", "Forró", "Frevo", "Maracatu", "Caboclinho",
+            "Xaxado", "Manguebeat", "Rap", "Sertanejo", "Rock", "Samba",
+            "Pop", "Metal"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        final ChipGroup entryChipGroup = findViewById(R.id.chip_group_user);
+        //final Chip entryChip = getChip(entryChipGroup, "Hello World");
+        //final Chip entryChip2 = getChip(entryChipGroup, "Test");
+        //entryChipGroup.addView(entryChip);
+        //entryChipGroup.addView(entryChip2);
 
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
         setSupportActionBar(toolbar);
@@ -219,5 +232,23 @@ public class ConfigUserActivity extends AppCompatActivity {
 
     public void updateProfileImage(Uri uri){
         UserFirebase.updateProfilePicture(uri);
+    }
+
+    private Chip getChip(final ChipGroup entryChipGroup, String text) {
+        final Chip chip = new Chip(this);
+        chip.setChipDrawable(ChipDrawable.createFromResource(this, R.xml.my_chip));
+        int paddingDp = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10,
+                getResources().getDisplayMetrics()
+        );
+        chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);
+        chip.setText(text);
+        chip.setOnCloseIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                entryChipGroup.removeView(chip);
+            }
+        });
+        return chip;
     }
 }

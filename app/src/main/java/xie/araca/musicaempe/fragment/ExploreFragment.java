@@ -1,10 +1,11 @@
 package xie.araca.musicaempe.fragment;
 
 
+import android.Manifest;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.config.ConfigFirebase;
+import xie.araca.musicaempe.helper.Permission;
 import xie.araca.musicaempe.model.Event;
 
 /**
@@ -37,6 +38,10 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback, Loc
     public ExploreFragment() {
         // Required empty public constructor
     }
+
+    private String[] permissionsNeed = new String[]{
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
 
 
     @Override
@@ -68,6 +73,7 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback, Loc
         getChildFragmentManager().beginTransaction().replace(R.id.map, supportMapFragment).commit();
 
 
+        validatePermission();
         return view;
 
 
@@ -88,7 +94,7 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback, Loc
                     LatLng location = new LatLng(latitude, longitude);
 
                     mMap.addMarker( new MarkerOptions().position(location).title(event.getNameEvent()));
-                    mMap.setMyLocationEnabled(true);
+                    //mMap.setMyLocationEnabled(true);
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 18));
                 }
 
@@ -125,5 +131,8 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback, Loc
 
     }
 
+    public void validatePermission(){
+        Permission.validatePermission(permissionsNeed, getActivity(), 1);
+    }
 
 }

@@ -54,7 +54,7 @@
             android:layout_alignBottom="@id/image_profile_user_config"
             android:src="@drawable/ic_photo"/>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_config_name_profile_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,9 +68,9 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:hint="Nome" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_config_city_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,9 +84,9 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:hint="Cidade Natal" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_config_neighbourhood_profile_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,29 +99,54 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:hint="Bairro" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_config_rythm_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_config_neighbourhood_profile_user"
             app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
-        <EditText
+       <!-- <EditText
             android:id="@+id/edittext_config_rythm_artist_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:hint="Adicione Ritmos de Interesse" />
-        </android.support.design.widget.TextInputLayout>
 
+            <com.pchmn.materialchips.ChipsInput
+                android:id="@+id/edittext_config_rythm_artist_user"
+                app:hint="Adicione Ritmos de Interesse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                app:chip_deletable="true"
+                app:chip_hasAvatarIcon="true"
+                app:filterable_list_backgroundColor="#f1f1f1"
+                app:maxRows="1" /> -->
+
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_below="@+id/text_config_rythm_user">
+
+
+        </com.google.android.material.chip.ChipGroup>
         <Button
             android:id="@+id/botao_salvar_alteracao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_config_rythm_user"
+            android:layout_below="@+id/chip_group_user"
             android:layout_marginStart="110dp"
             android:layout_marginTop="10dp"
             android:text="Salvar Alteração" />

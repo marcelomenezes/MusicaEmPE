@@ -3,10 +3,10 @@ package xie.araca.musicaempe.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +23,8 @@ import java.util.List;
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.activity.ProfileArtistActivity;
 import xie.araca.musicaempe.adapter.ArtistAdapter;
-import xie.araca.musicaempe.adapter.EventAdapter;
 import xie.araca.musicaempe.config.ConfigFirebase;
 import xie.araca.musicaempe.helper.RecyclerItemClickListener;
-import xie.araca.musicaempe.model.Event;
 import xie.araca.musicaempe.model.User;
 
 /**

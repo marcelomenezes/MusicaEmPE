@@ -3,13 +3,16 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="chipIconTint">#595959</color>
 
 
 
     <color name="cinzaEscuro">#5c5c5c</color>
     <color name="cinza">#F3F3F3</color>
+    <color name="cinzinha">#DCDCDC</color>
     <color name="preta">#000001</color>
     <color name="azulClaro">#ccccff</color>
 
     <color name="pernambuco">#FA1D7813</color>
+
 </resources>

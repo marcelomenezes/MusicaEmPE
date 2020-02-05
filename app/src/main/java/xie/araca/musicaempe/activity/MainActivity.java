@@ -1,31 +1,29 @@
 package xie.araca.musicaempe.activity;
 
 import android.Manifest;
-import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.SearchView;
+
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.view.MenuItemCompat;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.widget.SearchView;
 import android.util.Log;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
@@ -33,19 +31,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import xie.araca.musicaempe.R;
-import xie.araca.musicaempe.adapter.EventsTabsAdapter;
 import xie.araca.musicaempe.config.ConfigFirebase;
 import xie.araca.musicaempe.databinding.ActivityMainBinding;
 
@@ -56,14 +51,13 @@ import xie.araca.musicaempe.fragment.EventsListFragment;
 import xie.araca.musicaempe.fragment.ExploreFragment;
 import xie.araca.musicaempe.fragment.FavoriteFragment;
 import xie.araca.musicaempe.fragment.HomeFragment;
-import xie.araca.musicaempe.helper.Permission;
 import xie.araca.musicaempe.helper.UserFirebase;
-import xie.araca.musicaempe.model.User;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         SearchView.OnQueryTextListener,
         MenuItemCompat.OnActionExpandListener{
+
 
     private HomeFragment fragmentHome = new HomeFragment();
     private EventsFragment fragmentEvents = new EventsFragment();

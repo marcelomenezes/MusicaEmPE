@@ -1,8 +1,7 @@
 package xie.araca.musicaempe.holder;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,4 +22,5 @@ public class ArtistHolder extends RecyclerView.ViewHolder{
         artistCity = itemView.findViewById(R.id.text_city);
         artistPicture = itemView.findViewById(R.id.icon_artist);
     }
+
 }

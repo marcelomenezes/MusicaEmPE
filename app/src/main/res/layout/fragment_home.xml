@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     tools:context=".fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_home" />
 
-</FrameLayout>
+
+    <!-- TODO: Update blank fragment layout -->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="@color/cinzinha"
+        android:focusable="false" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_artists_list_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/list_artist_horizontal"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:background="@color/cinzinha"
+        android:focusable="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="20dp"
+        android:textSize="25sp"
+        android:text="Eventos:"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_events_list_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_event_horizontal"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:background="@color/cinzinha"
+        android:focusable="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="20dp"
+        android:textSize="25sp"
+        android:text="Eventos:"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="20dp"
+        android:textSize="25sp"
+        android:text="Eventos:"/>
+
+</LinearLayout>
+</ScrollView>
+</layout>

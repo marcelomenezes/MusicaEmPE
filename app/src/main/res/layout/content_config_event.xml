@@ -52,7 +52,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_alignBottom="@id/image_profile_event_config"
             android:src="@drawable/ic_photo"/>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_config_name_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,9 +67,9 @@ xmlns:android="http://schemas.android.com/apk/res/android">
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="1dp" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_start_date_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,9 +84,9 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:inputType="date"
             android:layout_marginStart="20dp"
             android:hint="De: dd/mm/aaaa" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_end_date_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,9 +101,9 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:hint="Até: dd/mm/aaaa" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_config_intro_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,9 +117,9 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_below="@+id/textview_detalhes_evento"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_config_address_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,7 +131,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:text="Salvar Evento"

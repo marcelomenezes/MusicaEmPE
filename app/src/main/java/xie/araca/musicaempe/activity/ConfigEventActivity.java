@@ -6,15 +6,15 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,21 +25,16 @@ import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -130,10 +125,17 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
                 event.setDetailsEvent(configIntroEventEdt.getText().toString());
                 event.setNameEvent(edNameEvent.getText().toString());
                 event.setDetailsEvent(edDetailsEvent.getText().toString());
-                event.setAddressEvent(saved.toString());
-                event.setLatlng(newlatlng.toString());
-                event.setLatitude(coordl1);
-                event.setLongitude(coordl2 );
+                if (saved ==  null){
+                    event.setAddressEvent("Endereço não informado.");
+                    event.setLatlng("");
+                    event.setLongitude("");
+                    event.setLatitude("");
+                }else {
+                    event.setAddressEvent(saved.toString());
+                    event.setLatlng(newlatlng.toString());
+                    event.setLatitude(coordl1);
+                    event.setLongitude(coordl2);
+                }
                 event.setConfirmedPresence(confirmedPresence);
                 if (imageData != null) {
                     saveEventPhoto(imageData);
@@ -142,7 +144,7 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
                     event.save();
                     finish();
                 }
-                Toast.makeText(ConfigEventActivity.this, "Criando Evento", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConfigEventActivity.this, "Criando Evento", Toast.LENGTH_LONG).show();
             }
         });
 

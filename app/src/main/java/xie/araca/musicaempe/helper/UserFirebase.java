@@ -1,20 +1,14 @@
 package xie.araca.musicaempe.helper;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.storage.StorageReference;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import xie.araca.musicaempe.config.ConfigFirebase;
 import xie.araca.musicaempe.model.User;

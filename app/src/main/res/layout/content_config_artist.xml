@@ -52,7 +52,7 @@
                 android:layout_alignBottom="@id/image_profile_artist_config"
                 android:src="@drawable/ic_photo"/>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_config_name_profile_artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,9 +67,9 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:hint="Nome" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_config_city_profile_artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,9 +83,9 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:hint="Cidade Natal" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_config_neighbourhood_profile_artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,9 +98,9 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:hint="Bairro" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_config_intro_artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,9 +113,9 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:hint="Intro" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_config_rythm_artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,17 +124,37 @@
                 <EditText
                     android:id="@+id/edittext_config_rythm_artist"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:hint="Adicione Ritmos" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+       <!--     <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:id="@+id/chip_rythm_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chip_text"
+                android:layout_below="@+id/text_config_rythm_artist"
+                app:chipIcon="@drawable/user"/> -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@+id/text_config_rythm_artist">
+
+
+            </com.google.android.material.chip.ChipGroup>
+
 
             <Button
                 android:id="@+id/button_save_config_artist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text_config_rythm_artist"
+                android:layout_below="@+id/chip_group_artist"
                 android:layout_centerHorizontal="true"
                 android:text="Salvar Alteração" />
 

@@ -16,7 +16,7 @@ import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.holder.EventHolder;
 import xie.araca.musicaempe.model.Event;
 
-public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
+public class EventHoriAdapter extends RecyclerView.Adapter<EventHolder>{
 
     private final List<Event> mEvents;
 
@@ -24,7 +24,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
     private Context context;
 
 
-    public EventAdapter(List<Event> events, Context c) {
+    public EventHoriAdapter(List<Event> events, Context c) {
 
         this.mEvents = events;
         this.context = c;
@@ -88,7 +88,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
     @Override
     public EventHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View listEvent = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_events, parent, false);
+                .inflate(R.layout.list_event_horizontal, parent, false);
 
         return new EventHolder(listEvent);
     }
@@ -140,4 +140,3 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
     }
 
 }
-

@@ -2,14 +2,13 @@ package xie.araca.musicaempe.fragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.config.ConfigFirebase;
 import xie.araca.musicaempe.model.Event;
-import xie.araca.musicaempe.model.User;
 
 /**
  * A simple {@link Fragment} subclass.

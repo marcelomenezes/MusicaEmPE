@@ -36,6 +36,9 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:id="@+id/text_artists"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxLength="25"
             android:textSize="20sp"
             android:padding="5dp"/>
         <TextView
@@ -43,6 +46,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/cinzaEscuro"
             android:id="@+id/text_city"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxLength="25"
             android:textSize="15sp"
             android:padding="2dp"/>
 
