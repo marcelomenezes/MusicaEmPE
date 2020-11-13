@@ -1,9 +1,12 @@
 package xie.araca.musicaempe.activity;
 
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +23,9 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.net.InetAddress;
+import java.io.*;
 
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.config.ConfigFirebase;
@@ -55,7 +61,6 @@ public class SignUpActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
         spinner = findViewById(R.id.item_check);
 
-
         binding.signupContent.noLoginId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,8 +72,8 @@ public class SignUpActivity extends AppCompatActivity {
         binding.signupContent.botaoCadastrarId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // binding.signupContent.botaoCadastrarId.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
-
+                // binding.signupContent.botaoCadastrarId.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+                //isInternetAvailable();
                 validateFields();
             }
         });
@@ -78,7 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
         spinner.setSelection(2);
     }
 
-    private void signUpUser(final User user){
+    private void signUpUser(final User user) {
         firebaseAuth = ConfigFirebase.getFirebaseAuth();
         firebaseAuth.createUserWithEmailAndPassword(
                 user.getEmail(),
@@ -86,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
         ).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
                     UserFirebase.setDisplayNameUser(user.getNameUser());
                     firebaseAuth.signInWithEmailAndPassword(
@@ -95,10 +100,10 @@ public class SignUpActivity extends AppCompatActivity {
                     ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 openMainActivity();
                                 Toast.makeText(SignUpActivity.this, "Sucesso ao logar", Toast.LENGTH_LONG).show();
-                            }else {
+                            } else {
                                 Toast.makeText(SignUpActivity.this, "Erro ao logar", Toast.LENGTH_LONG).show();
                             }
                         }
@@ -107,11 +112,11 @@ public class SignUpActivity extends AppCompatActivity {
                     user.setId(firebaseUser.getUid());
                     user.save();
 
-                }else {
+                } else {
 
                     String error = "";
 
-                    try{
+                    try {
                         throw task.getException();
                     } catch (FirebaseAuthWeakPasswordException e) {
                         error = getString(R.string.error_signup_weak_password);
@@ -123,74 +128,88 @@ public class SignUpActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Toast.makeText(SignUpActivity.this,  error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this, error, Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
-    private void validateFields(){
+    private void validateFields() {
         nameUser = binding.signupContent.cadastroNomeId.getText().toString();
         email = binding.signupContent.cadastroEmailId.getText().toString();
         senha = binding.signupContent.cadastroSenhaId.getText().toString();
         userName = binding.signupContent.cadastroUsuarioId.getText().toString();
 
-        if (!nameUser.isEmpty()){
+            if (!nameUser.isEmpty()) {
 
-            if (!email.isEmpty()){
+                if (!email.isEmpty()) {
 
-                if (!userName.isEmpty()){
+                    if (!userName.isEmpty()) {
 
-                    if (!senha.isEmpty()){
-                        user.setNameUser(binding.signupContent.cadastroNomeId.getText().toString());
-                        user.setEmail(binding.signupContent.cadastroEmailId.getText().toString());
-                        user.setUsername(binding.signupContent.cadastroUsuarioId.getText().toString());
-                        user.setPassword(binding.signupContent.cadastroSenhaId.getText().toString());
-                        user.setType(spinner.getSelectedItem().toString());
-                        user.setCity(city);
-                        user.setNeighborhood(neighbourhood);
-                        user.setIntro(intro);
-                        user.setRythm(rythm);
-                        user.setPhoto(photoUrl);
-                        user.setNumberOfFollowers(numberOfFollowers);
-                        user.setNumberOfFollowing(numberOfFollowing);
-                        user.setNumberOfEvents(numberOfEvents);
-                        signUpUser(user);
+                        if (!senha.isEmpty()) {
+                            user.setNameUser(binding.signupContent.cadastroNomeId.getText().toString());
+                            user.setEmail(binding.signupContent.cadastroEmailId.getText().toString());
+                            user.setUsername(binding.signupContent.cadastroUsuarioId.getText().toString());
+                            user.setPassword(binding.signupContent.cadastroSenhaId.getText().toString());
+                            user.setType(spinner.getSelectedItem().toString());
+                            user.setCity(city);
+                            user.setNeighborhood(neighbourhood);
+                            user.setIntro(intro);
+                            user.setRythm(rythm);
+                            user.setPhoto(photoUrl);
+                            user.setNumberOfFollowers(numberOfFollowers);
+                            user.setNumberOfFollowing(numberOfFollowing);
+                            user.setNumberOfEvents(numberOfEvents);
+                            signUpUser(user);
 
-                    }else {
-                        Toast.makeText(SignUpActivity.this, "Preencha a Senha", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(SignUpActivity.this, "Preencha a Senha", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Preencha o Nome de Login", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    Toast.makeText(SignUpActivity.this, "Preencha o Nome de Login", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SignUpActivity.this, "Preencha o Nome do Artista/Usuário(a)", Toast.LENGTH_SHORT).show();
                 }
-            }else {
+            } else {
                 Toast.makeText(SignUpActivity.this, "Preencha o Nome do Artista/Usuário(a)", Toast.LENGTH_SHORT).show();
             }
-        }else {
-            Toast.makeText(SignUpActivity.this, "Preencha o Nome do Artista/Usuário(a)", Toast.LENGTH_SHORT).show();
         }
 
+        private void configSpinner () {
+            String[] types = new String[]{
+                    "Artista", "Produtor(a)", "Usuário(a)"
+            };
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    this, R.layout.simple_spinner_item_text_white, types);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+        }
+        public void openMainActivity () {
+            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+            String tipo = spinner.getSelectedItem().toString();
+            String nameUser = binding.signupContent.cadastroNomeId.getText().toString();
+
+            intent.putExtra("tipo", tipo);
+            intent.putExtra("nameUser", nameUser);
+            startActivity(intent);
+            finish();
+        }
+
+    public void isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("www.google.com");
+            //You can replace it with your name
+            String a = ipAddr.toString();
+            if(!a.equals("")) {
+                validateFields();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(SignUpActivity.this, "Verifique conexão com a internet", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void configSpinner(){
-        String[] types = new String[]{
-                "Artista", "Produtor(a)", "Usuário(a)"
-        };
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, R.layout.simple_spinner_item_text_white, types);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
     }
-    public void openMainActivity(){
-        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-        String tipo = spinner.getSelectedItem().toString();
-        String nameUser = binding.signupContent.cadastroNomeId.getText().toString();
-
-        intent.putExtra("tipo", tipo);
-        intent.putExtra("nameUser", nameUser);
-        startActivity(intent);
-        finish();
-    }
-
-}

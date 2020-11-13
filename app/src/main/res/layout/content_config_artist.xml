@@ -121,14 +121,38 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_config_intro_artist"
                 app:hintTextAppearance="@style/AppTheme.TextAppearance.PE">
-                <EditText
+
+                <androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
                     android:id="@+id/edittext_config_rythm_artist"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="100sp"
+                    android:paddingLeft="15dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:hint="Adicione Ritmos" />
+                    android:hint="Ritmo"/>
+
             </com.google.android.material.textfield.TextInputLayout>
+
+                <HorizontalScrollView
+                    android:id="@+id/chipGroup2HorizontalView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:scrollbars="none"
+                    android:layout_below="@+id/text_config_rythm_artist"
+                    app:layout_constraintVertical_bias="0.62">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group_artist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp">
+
+
+                    </com.google.android.material.chip.ChipGroup>
+                </HorizontalScrollView>
+
 
        <!--     <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Entry"
@@ -138,23 +162,14 @@
                 android:text="@string/chip_text"
                 android:layout_below="@+id/text_config_rythm_artist"
                 app:chipIcon="@drawable/user"/> -->
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group_artist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_below="@+id/text_config_rythm_artist">
 
-
-            </com.google.android.material.chip.ChipGroup>
 
 
             <Button
                 android:id="@+id/button_save_config_artist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/chip_group_artist"
+                android:layout_below="@+id/text_config_rythm_artist"
                 android:layout_centerHorizontal="true"
                 android:text="Salvar Alteração" />
 

@@ -20,6 +20,7 @@ public class Event implements Serializable {
     String latitude;
     String longitude;
     int confirmedPresence;
+    String geofenceID;
 
 
     public Event(){
@@ -122,5 +123,13 @@ public class Event implements Serializable {
 
     public void setConfirmedPresence(int confirmedPresence) {
         this.confirmedPresence = confirmedPresence;
+    }
+
+    public String getGeofenceID() {
+        return geofenceID;
+    }
+
+    public void setGeofenceID(String geofenceID) {
+        this.geofenceID = geofenceID;
     }
 }

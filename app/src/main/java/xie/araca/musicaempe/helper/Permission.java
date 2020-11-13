@@ -24,10 +24,10 @@ public class Permission {
 
             //se é necessário solicitar permissão
             if (listPermissions.isEmpty()) return true;
-            String[] newPermissions = new String[listPermissions.size()];
-            listPermissions.toArray(newPermissions);
+                String[] newPermissions = new String[listPermissions.size()];
+                listPermissions.toArray(newPermissions);
 
-            ActivityCompat.requestPermissions(activity, newPermissions, requestCode);
+                ActivityCompat.requestPermissions(activity, newPermissions, requestCode);
 
         }
         return true;

@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -91,6 +94,8 @@ public class MainActivity extends AppCompatActivity
     private StorageReference storageReference;
     private String currentUserId;
 
+    private GeofencingClient geofencingClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +135,8 @@ public class MainActivity extends AppCompatActivity
         FirebaseUser user = UserFirebase.getCurrentUser();
 
         headernameUser.setText(UserFirebase.getCurrentUserDisplayName());
+
+        geofencingClient = LocationServices.getGeofencingClient(this);
 
 
 

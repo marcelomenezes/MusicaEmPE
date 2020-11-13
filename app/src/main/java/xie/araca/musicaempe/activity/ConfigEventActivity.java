@@ -2,12 +2,14 @@ package xie.araca.musicaempe.activity;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,10 +28,17 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.GeofencingRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -46,9 +55,11 @@ import java.util.Calendar;
 import xie.araca.musicaempe.config.ConfigFirebase;
 import xie.araca.musicaempe.databinding.ContentConfigEventBinding;
 import xie.araca.musicaempe.R;
+import xie.araca.musicaempe.helper.GeofenceHelper;
 import xie.araca.musicaempe.helper.Permission;
 import xie.araca.musicaempe.helper.UserFirebase;
 import xie.araca.musicaempe.model.Event;
+import xie.araca.musicaempe.model.Geo;
 
 public class ConfigEventActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -82,7 +93,7 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
     private ImageButton cameraBT;
     private ImageButton galleryBT;
 
-    private LatLng newlatlng;
+    public LatLng newlatlng;
     private CharSequence saved;
     private Double l1;
     private Double l2;
@@ -91,6 +102,14 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
     private int confirmedPresence = 0;
     //private String latitude;
     //private String longitude;
+
+    private float GEOFENCE_RADIUS = 200;
+    private GeofencingClient geofencingClient;
+    private GeofenceHelper geofenceHelper;
+
+    private String GEOFENCE_ID = "SOME_GEOFENCE_ID";
+
+    private Geo geo;
 
 
     @Override
@@ -115,6 +134,10 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
 
         imageView.setImageResource(R.drawable.ic_action_music_1);
 
+        geofencingClient = LocationServices.getGeofencingClient(this);
+        geofenceHelper = new GeofenceHelper(this);
+
+
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +148,8 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
                 event.setDetailsEvent(configIntroEventEdt.getText().toString());
                 event.setNameEvent(edNameEvent.getText().toString());
                 event.setDetailsEvent(edDetailsEvent.getText().toString());
+                addGeofence(newlatlng, GEOFENCE_RADIUS);
+                event.setGeofenceID(event.getId());
                 if (saved ==  null){
                     event.setAddressEvent("Endereço não informado.");
                     event.setLatlng("");
@@ -208,6 +233,7 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
                 l2 = newlatlng.longitude;
                 coordl1 = l1.toString();
                 coordl2 = l2.toString();
+
             }
 
             @Override
@@ -216,6 +242,8 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
+
+
     }
 
     @Override
@@ -224,6 +252,7 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
 
 
     }
+
 
     private void saveEventPhoto(byte[] imageData){
         storageReference = ConfigFirebase.getStorageReference();
@@ -399,5 +428,33 @@ public class ConfigEventActivity extends AppCompatActivity implements View.OnCli
 
     public void updateProfileImage(Uri uri){
         UserFirebase.updateProfilePicture(uri);
+    }
+
+    private void addGeofence(LatLng latLng, float radius){
+
+        Geofence geofence = geofenceHelper.getGeofence(event.getId(), latLng, radius,Geofence.
+                GEOFENCE_TRANSITION_DWELL | Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT);
+        GeofencingRequest geofencingRequest = geofenceHelper.getGeofencingRequest(geofence);
+        PendingIntent pendingIntent = geofenceHelper.getPendingIntent();
+        geofencingClient.addGeofences(geofencingRequest, pendingIntent)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "onSuccess: Geo Added");
+
+                        geo = new Geo();
+                        geo.setId(event.getId());
+                        geo.setNameEvent(event.getNameEvent());
+                        geo.setDetailsEvent(event.getDetailsEvent());
+                        geo.save();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        String errorMessage = geofenceHelper.getErrorString(e);
+                        Log.d(TAG, "onFailure" + errorMessage);
+                    }
+                });
     }
 }

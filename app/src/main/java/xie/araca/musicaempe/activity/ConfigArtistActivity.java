@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -15,11 +17,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.Editable;
+import android.text.Spanned;
+import android.text.TextWatcher;
+import android.text.style.ImageSpan;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -27,6 +38,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
@@ -38,6 +50,7 @@ import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.config.ConfigFirebase;
 import xie.araca.musicaempe.databinding.ActivityConfigBinding;
 import xie.araca.musicaempe.helper.Permission;
+import xie.araca.musicaempe.helper.RecyclerItemClickListener;
 import xie.araca.musicaempe.helper.UserFirebase;
 import xie.araca.musicaempe.model.User;
 
@@ -77,7 +90,10 @@ public class ConfigArtistActivity extends AppCompatActivity {
     private String rythm;
     private String type;
 
-    ArrayAdapter<String> rtAdapter;
+    private ArrayAdapter<String> rtAdapter;
+
+    private AutoCompleteTextView autoCompleteTextView;
+    private EditText edtRythm;
 
     String[] arrayRitmo = {"Baião", "Brega-romântico", "Brega-pop", "Brega-funk", "Ciranda",
             "Coco", "Cavalo-marinho", "Forró", "Frevo", "Maracatu", "Caboclinho",
@@ -90,20 +106,34 @@ public class ConfigArtistActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_config);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ChipGroup entryChipGroup = findViewById(R.id.chip_group_artist);
         rtAdapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_dropdown_item_1line,
                 arrayRitmo);
 
-        //binding.contentConfigArtist.edittextConfigRythmArtist.setOnClickListener();
 
-        for(String ritmo : arrayRitmo){
+        binding.contentConfigArtist.edittextConfigRythmArtist.setAdapter(rtAdapter);
+        binding.contentConfigArtist.edittextConfigRythmArtist.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+// Minimum number of characters the user has to type before the drop-down list is shown
+        binding.contentConfigArtist.edittextConfigRythmArtist.setThreshold(1);
+        final ChipGroup chipGroup = findViewById(R.id.chip_group_artist);
+        //Chip entryChip = addChipToGroup(chipGroup, "Hello World");
+
+        binding.contentConfigArtist.edittextConfigRythmArtist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String selected = (String) adapterView.getItemAtPosition(i);
+                addChipToGroup(selected);
+
+
+            }
+        });
+        /*for(String ritmo : arrayRitmo){
             Chip chip = new Chip(this);
             chip.setText(ritmo);
             entryChipGroup.addView(chip);
-        }
+        }*/
 
-        toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
+                toolbar.setNavigationIcon(R.drawable.ic_action_arrow_left);
         setSupportActionBar(toolbar);
         imageView = findViewById(R.id.image_profile_artist_config);
         city = findViewById(R.id.edittext_config_intro_artist);
@@ -141,7 +171,7 @@ public class ConfigArtistActivity extends AppCompatActivity {
         binding.contentConfigArtist.edittextConfigCityProfileArtist.setText(textCity);
         binding.contentConfigArtist.edittextConfigNeighbourhoodProfileArtist.setText(textNeighborhood);
         binding.contentConfigArtist.edittextConfigIntroArtist.setText(textIntro);
-        binding.contentConfigArtist.edittextConfigRythmArtist.setText(textRythm);
+        //binding.contentConfigArtist.edittextConfigRythmArtist.setText(textRythm);
 
         binding.contentConfigArtist.imgbtGalleryArtist.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +207,7 @@ public class ConfigArtistActivity extends AppCompatActivity {
                 stringCity = binding.contentConfigArtist.edittextConfigCityProfileArtist.getText().toString();
                 neighborhood = binding.contentConfigArtist.edittextConfigNeighbourhoodProfileArtist.getText().toString();
                 intro = binding.contentConfigArtist.edittextConfigIntroArtist.getText().toString();
-                rythm = binding.contentConfigArtist.edittextConfigRythmArtist.getText().toString();
+                //rythm = binding.contentConfigArtist.edittextConfigRythmArtist.getText().toString();
 
                 if (!name.isEmpty()){
                     if (!stringCity.isEmpty()){
@@ -337,4 +367,24 @@ public class ConfigArtistActivity extends AppCompatActivity {
         auxUser.setType(type);
         auxUser.update();
     }
+
+    private void addChipToGroup(String text) {
+        ChipDrawable chip = ChipDrawable.createFromResource(this, R.xml.my_chip);
+        ImageSpan span = new ImageSpan(chip);
+
+        int cursorPosition = binding.contentConfigArtist.edittextConfigRythmArtist.getSelectionStart();
+        int spanLength = text.length() + 2;
+        Editable editable = binding.contentConfigArtist.edittextConfigRythmArtist.getText();
+        chip.setText(text);
+        chip.setBounds(0, 20, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+        editable.setSpan(span, cursorPosition - spanLength, cursorPosition, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        /*int paddingDp = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10,
+                getResources().getDisplayMetrics()
+        );
+        chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);*/
+    }
+
+
+
 }

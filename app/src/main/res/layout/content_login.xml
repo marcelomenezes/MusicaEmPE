@@ -87,7 +87,7 @@
         android:textColorHint="@android:color/white" />
 
 
-        <Button
+        <android.widget.Button
             android:id="@+id/botaoLogarId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

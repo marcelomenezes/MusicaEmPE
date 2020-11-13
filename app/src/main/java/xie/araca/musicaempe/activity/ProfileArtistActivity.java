@@ -171,16 +171,16 @@ public class ProfileArtistActivity extends AppCompatActivity {
 
         btFollow.setText("Seguindo");
 
-        int following = uLogged.getNumberOfFollowing() + 1;
+        int following = uLogged.getNumberOfFollowing();
         HashMap<String, Object> dataFollowing = new HashMap<>();
-        dataFollowing.put("numberOfFollowing", following);
+        dataFollowing.put("numberOfFollowing", following + 1);
         DatabaseReference userFollowing = userRef
                 .child(uLogged.getId());
         userFollowing.updateChildren(dataFollowing);
 
-        int followers = artistToBeFollowed.getNumberOfFollowers() + 1;
+        int followers = artistToBeFollowed.getNumberOfFollowers();
         HashMap<String, Object> dataFollowers = new HashMap<>();
-        dataFollowers.put("numberOfFollowers", followers);
+        dataFollowers.put("numberOfFollowers", followers + 1);
         DatabaseReference userFollowers = userRef
                 .child(artistToBeFollowed.getId());
         userFollowers.updateChildren(dataFollowers);
@@ -197,14 +197,14 @@ public class ProfileArtistActivity extends AppCompatActivity {
 
         int followingRetrieve = uLogged.getNumberOfFollowing();
         HashMap<String, Object> dataFollowing = new HashMap<>();
-        dataFollowing.put("numberOfFollowing", followingRetrieve--);
+        dataFollowing.put("numberOfFollowing", followingRetrieve-1);
         DatabaseReference userFollowing = userRef
                 .child(uLogged.getId());
         userFollowing.updateChildren(dataFollowing);
 
         int followersRetrieve = artistFollowed.getNumberOfFollowing();
         HashMap<String, Object> dataFollowers = new HashMap<>();
-        dataFollowers.put("numberOfFollowers", followersRetrieve--);
+        dataFollowers.put("numberOfFollowers", followersRetrieve-1);
         DatabaseReference userFollowers = userRef
                 .child(artistFollowed.getId());
         userFollowers.updateChildren(dataFollowers);

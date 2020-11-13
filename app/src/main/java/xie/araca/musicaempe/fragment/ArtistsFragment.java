@@ -127,8 +127,10 @@ public class ArtistsFragment extends Fragment implements SwipeRefreshLayout.OnRe
             if (usersFound.size() > 0) {
                 for (User user : listArtist) {
                     String name = user.getNameUser().toUpperCase();
-                    if (!name.contains(s.toUpperCase()))
+                    String rythm = user.getRythm().toUpperCase();
+                    if (!name.contains(s.toUpperCase()) && !rythm.contains(s.toUpperCase())) {
                         usersFound.remove(user);
+                    }
                 }
             }
             loaded = new ArrayList<>();
