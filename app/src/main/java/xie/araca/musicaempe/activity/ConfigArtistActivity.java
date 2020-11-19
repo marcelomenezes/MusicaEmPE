@@ -45,6 +45,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.config.ConfigFirebase;
@@ -171,7 +174,12 @@ public class ConfigArtistActivity extends AppCompatActivity {
         binding.contentConfigArtist.edittextConfigCityProfileArtist.setText(textCity);
         binding.contentConfigArtist.edittextConfigNeighbourhoodProfileArtist.setText(textNeighborhood);
         binding.contentConfigArtist.edittextConfigIntroArtist.setText(textIntro);
-        //binding.contentConfigArtist.edittextConfigRythmArtist.setText(textRythm);
+        binding.contentConfigArtist.edittextConfigRythmArtist.setText(textRythm);
+
+        /*if(textRythm.contains(", "))
+            splitComma(textRythm);
+        else
+            addChipToGroup(textRythm);*/
 
         binding.contentConfigArtist.imgbtGalleryArtist.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,7 +215,7 @@ public class ConfigArtistActivity extends AppCompatActivity {
                 stringCity = binding.contentConfigArtist.edittextConfigCityProfileArtist.getText().toString();
                 neighborhood = binding.contentConfigArtist.edittextConfigNeighbourhoodProfileArtist.getText().toString();
                 intro = binding.contentConfigArtist.edittextConfigIntroArtist.getText().toString();
-                //rythm = binding.contentConfigArtist.edittextConfigRythmArtist.getText().toString();
+                rythm = binding.contentConfigArtist.edittextConfigRythmArtist.getText().toString();
 
                 if (!name.isEmpty()){
                     if (!stringCity.isEmpty()){
@@ -222,6 +230,7 @@ public class ConfigArtistActivity extends AppCompatActivity {
                                     user.setEmail(firebaseUser.getEmail());
                                     user.setId(firebaseUser.getUid());
                                     user.setType(type);
+                                    user.setRythm(rythm);
                                     if(firebaseUser.getPhotoUrl() != null){
                                         SharedPreferences preferences = getSharedPreferences("photo", MODE_PRIVATE);
                                         String foto = preferences.getString("foto", null);
@@ -385,6 +394,138 @@ public class ConfigArtistActivity extends AppCompatActivity {
         chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);*/
     }
 
+    /*private void addChipToGroup(String text) {
+        String str = text;
+        List<String> list = Arrays.asList(str.split(", "));
+        ChipDrawable chip = ChipDrawable.createFromResource(this, R.xml.my_chip);
+        ImageSpan span = new ImageSpan(chip);
+        int soma= 0;
+        int cursorPosition = binding.contentConfigArtist.edittextConfigRythmArtist.getSelectionStart();
+
+        if (list.size() > 0) {
+            int spanLengthTotal = text.length();
+            int spanLength = list.get(0).length();
+            List<String> lista = new ArrayList<>();
+            for (int i = 0; i < list.size();i++) {
+                //if (cursorPosition < spanLength) {
+                    chip.setText(list.get(i));
+                    chip.setBounds(0, 20, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+                    cursorPosition = spanLength;
+
+                    lista.add(binding.contentConfigArtist.edittextConfigRythmArtist.getText().toString());
+                    if (i > 0) {
+
+                        addChip(list.get(i-1), list.get(i), text );
+                        /*
+                        binding.contentConfigArtist.edittextConfigRythmArtist.setText(list.get(i-1) + ", " + list.get(i) + ", ");
+                        Editable editable = binding.contentConfigArtist.edittextConfigRythmArtist.getText();
+
+                        chip.setText(list.get(i-1));
+                        chip.setBounds(0, 20, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+
+                        editable.setSpan(span, cursorPosition - spanLength, spanLength, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    }else {
+                        addChip1("", list.get(i), text);
+                        /*ChipDrawable chip1 = ChipDrawable.createFromResource(this, R.xml.my_chip);
+                        ImageSpan span1 = new ImageSpan(chip);
+                        chip1.setText(list.get(i));
+                        chip1.setBounds(0, 20, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+
+                        binding.contentConfigArtist.edittextConfigRythmArtist.setText(list.get(i) + ", ");
+                        Editable editable = binding.contentConfigArtist.edittextConfigRythmArtist.getText();
 
 
-}
+                        editable.setSpan(span, cursorPosition - spanLength, spanLength, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                  //  }
+                    //Editable editable = binding.contentConfigArtist.edittextConfigRythmArtist.getText();
+
+
+                    //editable.setSpan(span, cursorPosition - spanLength, spanLength, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                /*} else {
+                    chip.setText(text);
+                    chip.setBounds(0, 20, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+                    int spanlengthNow = list.get(i).length();
+                    if ()
+                    int spanLengthOld = list.get(i-1).length();
+                    int somou = spanlengthNow + spanLengthOld;
+
+                    binding.contentConfigArtist.edittextConfigRythmArtist.setText( lista.get(i-1) + list.get(i) + ", ");
+                    Editable editable1 = binding.contentConfigArtist.edittextConfigRythmArtist.getText();
+                    editable1.setSpan(span, spanLengthTotal - spanlengthNow , --somou, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                }*/
+          /*  }
+        }else {
+            int spanLength = text.length() + 2;
+                    chip.setText(text);
+                    chip.setBounds(0, 20, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+                    int spanlength1 = text.length() + 2;
+                    Editable editable = binding.contentConfigArtist.edittextConfigRythmArtist.getText();
+                    editable.setSpan(span, cursorPosition - spanlength1, cursorPosition, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                }
+            }
+            */
+
+            private void addChip(String sizeBefore, String sizeNow, int sizeTotal){
+                ChipDrawable chip = ChipDrawable.createFromResource(this, R.xml.my_chip);
+                ImageSpan span = new ImageSpan(chip);
+                int cursorPosition = binding.contentConfigArtist.edittextConfigRythmArtist.getSelectionStart();
+                int spanLength = sizeNow.length() + 2;
+
+                chip.setText(sizeNow);
+                chip.setBounds(0, 20, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+                binding.contentConfigArtist.edittextConfigRythmArtist.setText(sizeBefore + ", " + sizeNow + ", ");
+                Editable editable = binding.contentConfigArtist.edittextConfigRythmArtist.getText();
+                editable.setSpan(span, sizeTotal - spanLength, spanLength + sizeBefore.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+
+    private void addChip1(String sizeNow){
+        ChipDrawable chip = ChipDrawable.createFromResource(this, R.xml.my_chip);
+        ImageSpan span = new ImageSpan(chip);
+        int cursorPosition = binding.contentConfigArtist.edittextConfigRythmArtist.getSelectionStart();
+        int spanLength = sizeNow.length();
+
+        chip.setText(sizeNow);
+        chip.setBounds(0, 20, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+        binding.contentConfigArtist.edittextConfigRythmArtist.setText(sizeNow + ", ");
+        Editable editable = binding.contentConfigArtist.edittextConfigRythmArtist.getText();
+        editable.setSpan(span, 0, spanLength, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+    }
+
+    private void splitComma(String text){
+        String str = text;
+        List<String> list = Arrays.asList(str.split(", "));
+        if (list.size() > 1){
+            for(int i = 1; i < list.size(); i++){
+                addChip(list.get(i-1), list.get(i), text.length() );
+            }
+        }else{
+            addChip1(text);
+
+        }
+    }
+
+        /*int paddingDp = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10,
+                getResources().getDisplayMetrics()
+        );
+        chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);*/
+    }
+
+   /* private void splitString(String text){
+        String str = text;
+        List<String> list = Arrays.asList(str.split("," ));
+
+       // addChipToGroup(list.get(0));
+        //addChipToGroup(list.get(1));
+
+       /* for (String ritmo: list){
+            addChipToGroup(ritmo);
+        }
+
+
+
+    }
+
+
+}*/
