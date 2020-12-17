@@ -8,18 +8,26 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -40,6 +48,7 @@ import java.io.ByteArrayOutputStream;
 
 import xie.araca.musicaempe.R;
 import xie.araca.musicaempe.config.ConfigFirebase;
+import xie.araca.musicaempe.databinding.ActivityConfigUserBinding;
 import xie.araca.musicaempe.helper.Permission;
 import xie.araca.musicaempe.helper.UserFirebase;
 import xie.araca.musicaempe.model.User;
@@ -63,8 +72,11 @@ public class ConfigUserActivity extends AppCompatActivity {
 
     private String nameUser;
 
+    private ArrayAdapter<String> rtAdapter;
 
-    String[] arrayRitmo = new String[]{"Baião", "Brega-romântico", "Brega-pop", "Brega-funk", "Ciranda",
+    ActivityConfigUserBinding binding;
+
+    String[] arrayRitmo = {"Baião", "Brega-romântico", "Brega-pop", "Brega-funk", "Ciranda",
             "Coco", "Cavalo-marinho", "Forró", "Frevo", "Maracatu", "Caboclinho",
             "Xaxado", "Manguebeat", "Rap", "Sertanejo", "Rock", "Samba",
             "Pop", "Metal"};
@@ -72,8 +84,12 @@ public class ConfigUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_config_user);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_config_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        rtAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                arrayRitmo);
 
         final ChipGroup entryChipGroup = findViewById(R.id.chip_group_user);
         //final Chip entryChip = getChip(entryChipGroup, "Hello World");
@@ -130,6 +146,18 @@ public class ConfigUserActivity extends AppCompatActivity {
                 if(i.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(i, SELECT_CAMERA);
                 }
+            }
+        });
+
+        binding.contentConfigUser.edittextConfigRythmUser.setAdapter(rtAdapter);
+        binding.contentConfigUser.edittextConfigRythmUser.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        binding.contentConfigUser.edittextConfigRythmUser.setThreshold(1);
+        binding.contentConfigUser.edittextConfigRythmUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String selected = (String) adapterView.getItemAtPosition(i);
+                addChipToGroup(selected);
+
             }
         });
 
@@ -250,5 +278,22 @@ public class ConfigUserActivity extends AppCompatActivity {
             }
         });
         return chip;
+    }
+
+    private void addChipToGroup(String text) {
+        ChipDrawable chip = ChipDrawable.createFromResource(this, R.xml.my_chip);
+        ImageSpan span = new ImageSpan(chip);
+
+        int cursorPosition = binding.contentConfigUser.edittextConfigRythmUser.getSelectionStart();
+        int spanLength = text.length() + 2;
+        Editable editable = binding.contentConfigUser.edittextConfigRythmUser.getText();
+        chip.setText(text);
+        chip.setBounds(0, 20, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+        editable.setSpan(span, cursorPosition - spanLength, cursorPosition, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        /*int paddingDp = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10,
+                getResources().getDisplayMetrics()
+        );
+        chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);*/
     }
 }
